@@ -1,0 +1,37 @@
+<Project>
+  <PropertyGroup Label="SDK Versions">
+    <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
+    <NetCoreTargetVersion>netcoreapp3.1</NetCoreTargetVersion>
+    <LangTargetVersion>latest</LangTargetVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package Versions">
+    <MicrosoftEntityFrameworkCorePackageVersion>3.1.3</MicrosoftEntityFrameworkCorePackageVersion>
+    <MicrosoftEntityFrameworkCoreSqlServerPackageVersion>3.1.3</MicrosoftEntityFrameworkCoreSqlServerPackageVersion>
+    <MicrosoftEntityFrameworkCoreDesignPackageVersion>3.1.3</MicrosoftEntityFrameworkCoreDesignPackageVersion>
+    <MicrosoftAspNetCoreIdentityEntityFrameworkCorePackageVersion>3.1.3</MicrosoftAspNetCoreIdentityEntityFrameworkCorePackageVersion>
+    <MicrosoftExtensionsIdentityStoresPackageVersion>3.1.3</MicrosoftExtensionsIdentityStoresPackageVersion>
+    <MicrosoftAspNetCoreIdentityUIPackageVersion>3.1.3</MicrosoftAspNetCoreIdentityUIPackageVersion>
+    <MicrosoftAspNetCoreDiagnosticsEntityFrameworkCorePackageVersion>3.1.3</MicrosoftAspNetCoreDiagnosticsEntityFrameworkCorePackageVersion>
+    <MicrosoftEntityFrameworkCoreInMemoryPackageVersion>3.1.3</MicrosoftEntityFrameworkCoreInMemoryPackageVersion>
+    <MicrosoftAspNetCoreIdentityPackageVersion>2.2.0</MicrosoftAspNetCoreIdentityPackageVersion>
+    <MicrosoftAspNetCoreMvcVersioningPackageVersion>4.1.1</MicrosoftAspNetCoreMvcVersioningPackageVersion>
+    <NewtonsoftJsonPackageVersion>10.0.1</NewtonsoftJsonPackageVersion>
+    <FluentValidationAspNetCorePackageVersion>8.6.2</FluentValidationAspNetCorePackageVersion>
+    <SwashbuckleAspNetCorePackageVersion>5.3.3</SwashbuckleAspNetCorePackageVersion>
+    <AutomapperPackageVersion>9.0.0</AutomapperPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Test Package Versions">
+    <MicrosoftNETTestSdkPackageVersion>15.5.0</MicrosoftNETTestSdkPackageVersion>
+    <FluentAssertionsVersion>5.7.0</FluentAssertionsVersion>
+    <ASPNetCoreTestHostVersion>2.0.1</ASPNetCoreTestHostVersion>
+    <XUnitPackageVersion>2.3.1</XUnitPackageVersion>
+    <XUnitRunnerVisualstudio>2.3.1</XUnitRunnerVisualstudio>
+  </PropertyGroup>
+
+  <PropertyGroup Label="CLI Tools Versions">
+    <DotnetXUnitPackageVersion>2.3.1</DotnetXUnitPackageVersion>
+  </PropertyGroup>
+
+</Project>
