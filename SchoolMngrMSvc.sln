@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{9215CA38-1706-4E8F-89E4-049C460609D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{9A0E97C7-B8C5-4223-A028-5CD8E7825B38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{CA26C1B4-DE90-44AC-A0C1-16A413C91749}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "academe", "academe", "{D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Core.Shared", "src\core\shared\SchoolMngr.Core.Shared.csproj", "{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Core.Abstractions", "src\core\abstractions\SchoolMngr.Core.Abstractions.csproj", "{713F993F-9598-4A36-9301-A9BC78565129}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe", "src\services\academe\SchoolMngr.Services.Academe.csproj", "{116155DE-2EEF-4B26-84D6-C76A88392AB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.BO", "src\services\admin\SchoolMngr.Services.BO.csproj", "{89578593-E123-4A5C-8F02-8BD60A45EE25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713F993F-9598-4A36-9301-A9BC78565129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713F993F-9598-4A36-9301-A9BC78565129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713F993F-9598-4A36-9301-A9BC78565129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713F993F-9598-4A36-9301-A9BC78565129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89578593-E123-4A5C-8F02-8BD60A45EE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89578593-E123-4A5C-8F02-8BD60A45EE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89578593-E123-4A5C-8F02-8BD60A45EE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89578593-E123-4A5C-8F02-8BD60A45EE25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A0E97C7-B8C5-4223-A028-5CD8E7825B38} = {9215CA38-1706-4E8F-89E4-049C460609D2}
+		{7D2C5D3D-7E49-4481-B9B2-BD2BE1619877} = {9215CA38-1706-4E8F-89E4-049C460609D2}
+		{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
+		{D1D07BFD-B353-4D2E-9D00-DFAF0CB47148} = {9215CA38-1706-4E8F-89E4-049C460609D2}
+		{713F993F-9598-4A36-9301-A9BC78565129} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
+		{116155DE-2EEF-4B26-84D6-C76A88392AB9} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
+		{89578593-E123-4A5C-8F02-8BD60A45EE25} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D651724-D39C-4388-B785-F5A5C30E1852}
+	EndGlobalSection
+EndGlobal
