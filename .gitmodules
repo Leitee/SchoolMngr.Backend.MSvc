@@ -1,25 +1,30 @@
 [submodule "src/frontend"]
 	path = src/frontend
 	url = https://github.com/Leitee/SchoolMngr.Frontend.WebApp.git
-	branch = master
+	branch = develop
 	ignore = dirty
 [submodule "src/services/identity"]
 	path = src/services/identity
 	url = https://github.com/Leitee/SchoolMngr.Services.Identity.git
-	branch = master
+	branch = develop
 	ignore = dirty
 [submodule "src/services/admin"]
 	path = src/services/admin
 	url = https://github.com/Leitee/SchoolMngr.Services.BO.git
-	branch = master
+	branch = develop
 	ignore = dirty
 [submodule "src/services/academe"]
 	path = src/services/academe
 	url = https://github.com/Leitee/SchoolMngr.Services.Academe.git
-	branch = master
+	branch = develop
+	ignore = dirty
+[submodule "src/services/notification"]
+	path = src/services/notification
+	url = https://github.com/Leitee/SchoolMngr.Services.Notification.git
+	branch = develop
 	ignore = dirty
 [submodule "src/core/base"]
 	path = src/core/base
 	url = https://github.com/Leitee/Pandora.NetStdLibrary.Base.git
-	branch = master
+	branch = develop
 	ignore = dirty

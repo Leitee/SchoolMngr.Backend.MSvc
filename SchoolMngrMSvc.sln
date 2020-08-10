@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Core.Shared", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe", "src\services\academe\SchoolMngr.Services.Academe.csproj", "{116155DE-2EEF-4B26-84D6-C76A88392AB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandora.NetStdLibrary.Base", "src\core\base\Pandora.NetStdLibrary.Base.csproj", "{2A2F30F6-CC9F-471F-A316-11F63301A55C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.BackOffice.Model", "src\services\admin\SchoolMngr.BackOffice.Model\SchoolMngr.BackOffice.Model.csproj", "{C43A9F92-DEB3-4DDF-A1A9-BC06DFA5D16A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.BackOffice.BL", "src\services\admin\SchoolMngr.BackOffice.BL\SchoolMngr.BackOffice.BL.csproj", "{AE85378E-53F4-42DF-A8AA-11B4B9B1CC01}"
@@ -28,6 +26,24 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.BackOffice.DAL", "src\services\admin\SchoolMngr.BackOffice.DAL\SchoolMngr.BackOffice.DAL.csproj", "{9D85CFAB-6556-4586-9A4F-C86E25807E36}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Identity", "src\services\identity\SchoolMngr.Services.Identity.csproj", "{74C15151-9972-4730-A279-8D4691984A26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E9E7A9A-8988-460E-B73C-EC702893179B}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		.gitmodules = .gitmodules
+		.vsconfig = .vsconfig
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Notification", "src\services\notification\SchoolMngr.Services.Notification\SchoolMngr.Services.Notification.csproj", "{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notification", "notification", "{AAA09C78-AB41-47AD-8642-4CE755EDD323}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandora.NetStdLibrary.Base", "src\core\base\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base.csproj", "{757AED5C-B395-4798-91D0-FEC2C417B993}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +59,6 @@ Global
 		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{116155DE-2EEF-4B26-84D6-C76A88392AB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A2F30F6-CC9F-471F-A316-11F63301A55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A2F30F6-CC9F-471F-A316-11F63301A55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A2F30F6-CC9F-471F-A316-11F63301A55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A2F30F6-CC9F-471F-A316-11F63301A55C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C43A9F92-DEB3-4DDF-A1A9-BC06DFA5D16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C43A9F92-DEB3-4DDF-A1A9-BC06DFA5D16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C43A9F92-DEB3-4DDF-A1A9-BC06DFA5D16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,6 +79,14 @@ Global
 		{74C15151-9972-4730-A279-8D4691984A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C15151-9972-4730-A279-8D4691984A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C15151-9972-4730-A279-8D4691984A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{757AED5C-B395-4798-91D0-FEC2C417B993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{757AED5C-B395-4798-91D0-FEC2C417B993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{757AED5C-B395-4798-91D0-FEC2C417B993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{757AED5C-B395-4798-91D0-FEC2C417B993}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,12 +97,14 @@ Global
 		{D1D07BFD-B353-4D2E-9D00-DFAF0CB47148} = {9215CA38-1706-4E8F-89E4-049C460609D2}
 		{3EDDD6F4-5BD2-4059-8BB3-160C66255AB5} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 		{116155DE-2EEF-4B26-84D6-C76A88392AB9} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
-		{2A2F30F6-CC9F-471F-A316-11F63301A55C} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 		{C43A9F92-DEB3-4DDF-A1A9-BC06DFA5D16A} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{AE85378E-53F4-42DF-A8AA-11B4B9B1CC01} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{DAC75DFF-FDCB-4AA8-B054-2285DC08F709} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{9D85CFAB-6556-4586-9A4F-C86E25807E36} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{74C15151-9972-4730-A279-8D4691984A26} = {9A0E97C7-B8C5-4223-A028-5CD8E7825B38}
+		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6} = {AAA09C78-AB41-47AD-8642-4CE755EDD323}
+		{AAA09C78-AB41-47AD-8642-4CE755EDD323} = {9215CA38-1706-4E8F-89E4-049C460609D2}
+		{757AED5C-B395-4798-91D0-FEC2C417B993} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D651724-D39C-4388-B785-F5A5C30E1852}
