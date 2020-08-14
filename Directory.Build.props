@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package Versions">
-    <PandoraBasePackageVersion>1.0.1</PandoraBasePackageVersion>
+    <PandoraBasePackageVersion>0.2.5</PandoraBasePackageVersion>
     <EntityFrameworkAllPackageVersion>3.1.4</EntityFrameworkAllPackageVersion>
     <AspNetCoreIdentityPackageVersion>3.1.4</AspNetCoreIdentityPackageVersion>
     

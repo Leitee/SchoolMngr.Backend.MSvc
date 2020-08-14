@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Pandora.NetStdLibrary.Base.Abstractions.Desentralized;
-using SchoolMngr.Core.Shared.EvenBus;
+using Pandora.NetStdLibrary.Base.Desentralized.IntegrationEvent;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Pandora.NetStdLibrary.Base.Desentralized.IntegrationEvent
+namespace SchoolMngr.Core.Shared.EvenBus
 {
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
@@ -27,7 +27,7 @@ namespace Pandora.NetStdLibrary.Base.Desentralized.IntegrationEvent
 
             _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
                 .GetTypes()
-                .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
+                .Where(t => t.Name.EndsWith(nameof(IntegrationEventPayload)))
                 .ToList();
         }
 

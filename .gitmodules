@@ -23,8 +23,3 @@
 	url = https://github.com/Leitee/SchoolMngr.Services.Notification.git
 	branch = develop
 	ignore = dirty
-[submodule "src/core/base"]
-	path = src/core/base
-	url = https://github.com/Leitee/Pandora.NetStdLibrary.Base.git
-	branch = develop
-	ignore = dirty

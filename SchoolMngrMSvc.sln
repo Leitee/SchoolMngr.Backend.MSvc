@@ -43,8 +43,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Notific
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notification", "notification", "{AAA09C78-AB41-47AD-8642-4CE755EDD323}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandora.NetStdLibrary.Base", "src\core\base\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base.csproj", "{757AED5C-B395-4798-91D0-FEC2C417B993}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,10 +81,6 @@ Global
 		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{757AED5C-B395-4798-91D0-FEC2C417B993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{757AED5C-B395-4798-91D0-FEC2C417B993}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{757AED5C-B395-4798-91D0-FEC2C417B993}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{757AED5C-B395-4798-91D0-FEC2C417B993}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,7 +98,6 @@ Global
 		{74C15151-9972-4730-A279-8D4691984A26} = {9A0E97C7-B8C5-4223-A028-5CD8E7825B38}
 		{90206843-DFE0-48AB-BC7A-654B3E4FA7A6} = {AAA09C78-AB41-47AD-8642-4CE755EDD323}
 		{AAA09C78-AB41-47AD-8642-4CE755EDD323} = {9215CA38-1706-4E8F-89E4-049C460609D2}
-		{757AED5C-B395-4798-91D0-FEC2C417B993} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D651724-D39C-4388-B785-F5A5C30E1852}
