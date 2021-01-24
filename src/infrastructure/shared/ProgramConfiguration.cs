@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SchoolMngr.Core.Shared
+namespace SchoolMngr.Infrastructure.Shared
 {
     public static class ProgramConfiguration
     {
