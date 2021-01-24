@@ -10,12 +10,6 @@
 	branch = develop
 	ignore = dirty
 
-[submodule "src/services/admin"]
-	path = src/services/admin
-	url = https://github.com/Leitee/SchoolMngr.Services.Backoffice.git
-	branch = develop
-	ignore = dirty
-
 [submodule "src/services/academe"]
 	path = src/services/academe
 	url = https://github.com/Leitee/SchoolMngr.Services.Academe.git
