@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup Label="SDK Versions">
+    <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
+    <NetCoreTargetVersion>net5.0</NetCoreTargetVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Package Versions">
+    <LangVersion>latest</LangVersion>
+    <PandoraBaseVersion>2.0.0</PandoraBaseVersion>
+    <FitnnerTrainersSharedVersion>0.5.0</FitnnerTrainersSharedVersion>
+    <EFVersion>5.0.7</EFVersion>
+    <MSConfiguration>5.0.0</MSConfiguration>
+  </PropertyGroup>
+
+  <!--TODO: why is not working-->
+  <ItemGroup >
+    <PackageReference Update="Microsoft.EntityFrameworkCore" Version="$(EFVersion)" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersion)" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="$(EFVersion)" />
+    <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="$(MSConfiguration)" />
+    <PackageReference Update="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(MSConfiguration)" />
+  </ItemGroup>
+
+</Project>

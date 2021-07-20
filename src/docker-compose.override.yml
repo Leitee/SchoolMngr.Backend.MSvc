@@ -1,0 +1,93 @@
+version: '3.4'
+
+services:
+  trainersweb:
+    ports:
+      - 8080:80
+
+  backoffice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "7180:80"
+      - "7143:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  academe:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "7180:80"
+      - "7143:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  notification:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - EventBusConnection=192.168.1.10
+      - EventBusUserName=guest
+      - EventBusPassword=guest
+    ports:
+      - "7280:80"
+      - "7243:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  mssqlserver:
+    environment:
+      SA_PASSWORD: "Devadmin321"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "5433:1433"
+    volumes:
+      - mssqlserver-data:/var/opt/mssql
+
+  postgressql:
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Devadmin321"
+      POSTGRES_DB: "SchoolMngr_Backoffice"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgressql-data:/var/opt/pgsql
+
+  elasticsearch:
+    environment:
+      - node.name=nosql01
+      - cluster.initial_master_nodes=nosql01
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"    
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - esnet
+
+  kibana:
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - esnet
+
+  rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"

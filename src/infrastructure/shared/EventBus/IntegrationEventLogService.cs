@@ -1,29 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Pandora.NetStdLibrary.Base.Abstractions.Desentralized;
-using Pandora.NetStdLibrary.Base.Desentralized.IntegrationEvent;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-
-namespace SchoolMngr.Core.Shared.EvenBus
+﻿/// <summary>
+/// 
+/// </summary>
+namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Storage;
+    using Pandora.NetStdLibrary.Abstractions.Desentralized;
+    using Pandora.NetStdLibrary.Base.Abstractions.Desentralized;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
+
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
         private readonly IntegrationEventLogContext _integrationEventLogContext;
-        private readonly DbConnection _dbConnection;
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(DbConnection dbConnection)
+        public IntegrationEventLogService(IntegrationEventLogContext eventLogContext)
         {
-            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
-            _integrationEventLogContext = new IntegrationEventLogContext(
-                new DbContextOptionsBuilder<IntegrationEventLogContext>()
-                    .UseNpgsql(_dbConnection)
-                    .Options);
+            _integrationEventLogContext = eventLogContext;
 
             _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
                 .GetTypes()

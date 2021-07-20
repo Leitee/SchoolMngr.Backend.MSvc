@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Pandora.NetStdLibrary.Base.Desentralized.IntegrationEvent;
-
-namespace SchoolMngr.Core.Shared.EvenBus
+﻿/// <summary>
+/// 
+/// </summary>
+namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Pandora.NetStdLibrary.Abstractions.Desentralized;
     public class IntegrationEventLogContext : DbContext
     {
         public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options)

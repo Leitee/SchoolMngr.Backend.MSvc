@@ -1,0 +1,71 @@
+version: '3.4'
+
+services:
+  trainersweb:
+    image: ${DOCKER_REGISTRY:-schollmngr}/trainersweb:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: trainersweb
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: always
+    depends_on: 
+      - backoffice
+
+  backoffice:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: backoffice
+    build:
+      context: .
+      dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
+    depends_on:
+      - postgressql
+      - rabbitmq
+
+  academe:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: academe
+    build:
+      context: .
+      dockerfile: microservices/academe/SchoolMngr.Services.Academe/Dockerfile
+    depends_on:
+      - postgressql
+      - rabbitmq
+
+  notification:
+    image: ${DOCKER_REGISTRY:-schollmngr}/notification:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: notification
+    build:
+      context: .
+      dockerfile: trainers/notification/Fitnner.Trainers.Notification/Dockerfile
+    depends_on:
+      - postgressql
+      - rabbitmq
+
+  mssqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssqlserver
+
+  postgressql:
+    image: postgres
+    container_name: postgressql
+    restart: always
+
+  elasticsearch:
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0-amd64
+     container_name: elasticsearch
+
+  kibana:
+     image: docker.elastic.co/kibana/kibana:7.9.0
+     container_name: kibana
+
+  rabbitmq:
+     image: rabbitmq:3-management-alpine
+     container_name: rabbitmq        
+
+networks:
+  esnet:
+
+volumes:
+  postgressql-data:
+  mssqlserver-data:
+  elasticsearch-data:
