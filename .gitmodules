@@ -16,14 +16,14 @@
 	branch = develop
 	ignore = dirty
 
-[submodule "src/microservices/backoffice"]
-	path = src/microservices/backoffice
+[submodule "src/microservices/admin"]
+	path = src/microservices/admin
 	url = https://github.com/Leitee/SchoolMngr.Services.Backoffice.git	
 	branch = develop
 	ignore = dirty
 
 [submodule "src/microservices/academe"]
 	path = src/microservices/academe
-	url = https://github.com/Leitee/SchoolMngr.Services.Academe.git	
+	url = https://github.com/Leitee/SchoolMngr.Services.Academe.git
 	branch = develop
 	ignore = dirty
