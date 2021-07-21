@@ -3,28 +3,25 @@
 	url = https://github.com/Leitee/SchoolMngr.Frontend.WebApp.git
 	branch = develop
 	ignore = dirty
-	
-[submodule "src/microservices/identity"]
-	path = src/microservices/identity
+
+[submodule "src/infrastructure/identity"]
+	path = src/infrastructure/identity
 	url = https://github.com/Leitee/Pandora.Infrastructure.Identity.git
-	branch = develop
-	ignore = dirty	
-	
-[submodule "src/microservices/notifications"]
-	path = src/microservices/notifications
-	url = https://github.com/Leitee/SchoolMngr.Services.Notifications.git
-	branch = develop
-	ignore = dirty
-	
-[submodule "src/microservices/academe"]
-	path = src/microservices/academe
-	url = https://github.com/Leitee/SchoolMngr.Services.Academe.git
-	branch = develop
-	ignore = dirty
-	
-[submodule "src/microservices/admin"]
-	path = src/microservices/admin
-	url = https://github.com/Leitee/SchoolMngr.Services.Backoffice.git
 	branch = develop
 	ignore = dirty
 
+[submodule "src/services/notifications"]
+	path = src/services/notifications
+	url = https://github.com/Leitee/SchoolMngr.Services.Notifications.git
+	branch = develop
+	ignore = dirty
+
+[submodule "src/infrastructure/base"]
+	path = src/infrastructure/base
+	url = https://github.com/Leitee/Pandora.NetStdLibrary.Base.git
+	branch = develop
+	ignore = dirty
+
+[submodule "src/services/backoffice"]
+	path = src/services/backoffice
+	url = https://github.com/Leitee/SchoolMngr.Services.Backoffice.git
