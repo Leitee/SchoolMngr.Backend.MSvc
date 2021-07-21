@@ -10,18 +10,20 @@
 	branch = develop
 	ignore = dirty
 
-[submodule "src/services/notifications"]
-	path = src/services/notifications
+[submodule "src/microservices/notifications"]
+	path = src/microservices/notifications
 	url = https://github.com/Leitee/SchoolMngr.Services.Notifications.git
 	branch = develop
 	ignore = dirty
 
-[submodule "src/infrastructure/base"]
-	path = src/infrastructure/base
-	url = https://github.com/Leitee/Pandora.NetStdLibrary.Base.git
+[submodule "src/microservices/backoffice"]
+	path = src/microservices/backoffice
+	url = https://github.com/Leitee/SchoolMngr.Services.Backoffice.git	
 	branch = develop
 	ignore = dirty
 
-[submodule "src/services/backoffice"]
-	path = src/services/backoffice
-	url = https://github.com/Leitee/SchoolMngr.Services.Backoffice.git
+[submodule "src/microservices/academe"]
+	path = src/microservices/academe
+	url = https://github.com/Leitee/SchoolMngr.Services.Academe.git	
+	branch = develop
+	ignore = dirty
