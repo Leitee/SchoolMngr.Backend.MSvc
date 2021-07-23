@@ -1,15 +1,3 @@
-[submodule "src/frontend"]
-	path = src/frontend
-	url = https://github.com/Leitee/SchoolMngr.Frontend.WebApp.git
-	branch = develop
-	ignore = dirty
-
-[submodule "src/infrastructure/identity"]
-	path = src/infrastructure/identity
-	url = https://github.com/Leitee/Pandora.Infrastructure.Identity.git
-	branch = develop
-	ignore = dirty
-
 [submodule "src/microservices/notifications"]
 	path = src/microservices/notifications
 	url = https://github.com/Leitee/SchoolMngr.Services.Notifications.git
