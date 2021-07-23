@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
-    <Version>$(FitnnerTrainersSharedVersion)</Version>
+    <Version>$(SchoolMngrServicesSharedVersion)</Version>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <Company>Fitnner</Company>
+    <Company>Codeit Corp</Company>
     <Description>A base library to support microservices comunication and shared configuration.</Description>
   </PropertyGroup>
 
@@ -25,8 +25,10 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base\Pandora.NetStdLibrary.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
   </ItemGroup>
 
 

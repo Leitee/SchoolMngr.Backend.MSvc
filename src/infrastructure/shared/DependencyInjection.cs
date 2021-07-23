@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Pandora.NetStdLibrary.Base.Abstractions.Desentralized;
-using Pandora.NetStdLibrary.Base.Desentralized.EventBus;
-using Pandora.NetStdLibrary.Base.Desentralized.EventBusRabbitMQ;
-using Pandora.NetStdLibrary.Base.Tests;
+using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
+using Codeit.NetStdLibrary.Base.Desentralized.EventBus;
+using Codeit.NetStdLibrary.Base.Desentralized.EventBusRabbitMQ;
+using Codeit.NetStdLibrary.Base.Tests;
 using RabbitMQ.Client;
 using System;
 

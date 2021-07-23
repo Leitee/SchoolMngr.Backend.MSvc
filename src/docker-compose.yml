@@ -36,7 +36,7 @@ services:
     container_name: notification
     build:
       context: .
-      dockerfile: trainers/notification/Fitnner.Trainers.Notification/Dockerfile
+      dockerfile: trainers/notification/SchoolMngr.Trainers.Notification/Dockerfile
     depends_on:
       - postgressql
       - rabbitmq

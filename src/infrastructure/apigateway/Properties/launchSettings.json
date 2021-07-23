@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Fitnner.ApiGateway": {
+    "SchoolMngr.ApiGateway": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "administration",

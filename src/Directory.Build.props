@@ -6,8 +6,8 @@
   
   <PropertyGroup Label="Package Versions">
     <LangVersion>latest</LangVersion>
-    <PandoraBaseVersion>2.0.0</PandoraBaseVersion>
-    <FitnnerTrainersSharedVersion>0.5.0</FitnnerTrainersSharedVersion>
+    <CodeitBaseVersion>2.0.0</CodeitBaseVersion>
+    <SchoolMngrServicesSharedVersion>0.5.0</SchoolMngrServicesSharedVersion>
     <EFVersion>5.0.7</EFVersion>
     <MSConfiguration>5.0.0</MSConfiguration>
   </PropertyGroup>

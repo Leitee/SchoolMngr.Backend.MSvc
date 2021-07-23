@@ -1,4 +1,4 @@
-using Pandora.NetStdLibrary.Base.Abstractions.Desentralized;
+using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
 using System;
 using Xunit;
 

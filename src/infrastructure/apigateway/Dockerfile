@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["core/apigateway/Fitnner.Trainers.ApiGateway/Fitnner.Trainers.ApiGateway.csproj", "core/apigateway/Fitnner.Trainers.ApiGateway/"]
-RUN dotnet restore "core/apigateway/Fitnner.Trainers.ApiGateway/Fitnner.Trainers.ApiGateway.csproj"
+COPY ["core/apigateway/SchoolMngr.Services.ApiGateway/SchoolMngr.Services.ApiGateway.csproj", "core/apigateway/SchoolMngr.Services.ApiGateway/"]
+RUN dotnet restore "core/apigateway/SchoolMngr.Services.ApiGateway/SchoolMngr.Services.ApiGateway.csproj"
 COPY . .
-WORKDIR "/src/core/apigateway/Fitnner.Trainers.ApiGateway"
-RUN dotnet build "Fitnner.Trainers.ApiGateway.csproj" -c Release -o /app/build
+WORKDIR "/src/core/apigateway/SchoolMngr.Services.ApiGateway"
+RUN dotnet build "SchoolMngr.Services.ApiGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Fitnner.Trainers.ApiGateway.csproj" -c Release -o /app/publish
+RUN dotnet publish "SchoolMngr.Services.ApiGateway.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Fitnner.Trainers.ApiGateway.dll"]
+ENTRYPOINT ["dotnet", "SchoolMngr.Services.ApiGateway.dll"]

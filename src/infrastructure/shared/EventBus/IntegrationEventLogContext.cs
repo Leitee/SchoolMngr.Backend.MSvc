@@ -5,7 +5,7 @@ namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Pandora.NetStdLibrary.Abstractions.Desentralized;
+    using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
     public class IntegrationEventLogContext : DbContext
     {
         public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options)

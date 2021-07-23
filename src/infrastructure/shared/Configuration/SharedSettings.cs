@@ -3,7 +3,7 @@
 /// </summary>
 namespace SchoolMngr.Infrastructure.Shared.Configuration
 {
-    using Pandora.NetStdLibrary.Base.Common;
+    using Codeit.NetStdLibrary.Base.Common;
 
     public class SharedSettings : BaseSettings<SharedSettings>
     {

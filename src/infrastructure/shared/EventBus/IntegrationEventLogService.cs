@@ -5,8 +5,7 @@ namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
-    using Pandora.NetStdLibrary.Abstractions.Desentralized;
-    using Pandora.NetStdLibrary.Base.Abstractions.Desentralized;
+    using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
     using System;
     using System.Collections.Generic;
     using System.Linq;

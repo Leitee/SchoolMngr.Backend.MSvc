@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Pandora.NetStdLibrary.Base.Abstractions.DataAccess;
+using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
 using System;
 
 namespace SchoolMngr.Infrastructure.Shared.Configuration
