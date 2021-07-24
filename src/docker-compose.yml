@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-  trainersweb:
-    image: ${DOCKER_REGISTRY:-schollmngr}/trainersweb:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: trainersweb
+  webapp:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/frontend:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: webapp
     build:
       context: .
       dockerfile: frontend/Dockerfile
@@ -32,11 +32,11 @@ services:
       - rabbitmq
 
   notification:
-    image: ${DOCKER_REGISTRY:-schollmngr}/notification:${PLATFORM:-linux}-${TAG:-latest}
+    image: ${DOCKER_REGISTRY:-schoolmngr}/notification:${PLATFORM:-linux}-${TAG:-latest}
     container_name: notification
     build:
       context: .
-      dockerfile: trainers/notification/SchoolMngr.Trainers.Notification/Dockerfile
+      dockerfile: microservices/notifications/SchoolMngr.Trainers.Notifications/Dockerfile
     depends_on:
       - postgressql
       - rabbitmq

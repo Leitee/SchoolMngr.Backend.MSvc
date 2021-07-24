@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  trainersweb:
+  webapp:
     ports:
       - 8080:80
 

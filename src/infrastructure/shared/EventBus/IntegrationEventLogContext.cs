@@ -3,9 +3,10 @@
 /// </summary>
 namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
+    using Codeit.NetStdLibrary.Abstractions.Desentralized;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
+
     public class IntegrationEventLogContext : DbContext
     {
         public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options)

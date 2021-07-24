@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerfileContext>..\..</DockerfileContext>
     <UserSecretsId>2b2e51a6-5be7-423c-adab-a6636325bd14</UserSecretsId>
   </PropertyGroup>
 
