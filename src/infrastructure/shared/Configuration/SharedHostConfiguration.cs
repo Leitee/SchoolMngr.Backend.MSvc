@@ -28,10 +28,10 @@ namespace SchoolMngr.Infrastructure.Shared.Configuration
 
         public static IConfiguration GetBasicConfiguration()
         {
-            return GetBasicConfiguration(new ConfigurationBuilder());
+            return BuildDefaultSettings(new ConfigurationBuilder());
         }
 
-        public static IConfiguration GetBasicConfiguration(IConfigurationBuilder configurationBuilder)
+        public static IConfiguration BuildDefaultSettings(IConfigurationBuilder configurationBuilder)
         {
             var basePath = Directory.GetCurrentDirectory();
             var configuration = configurationBuilder

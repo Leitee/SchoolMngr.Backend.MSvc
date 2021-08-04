@@ -56,6 +56,9 @@ EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{567DACB2-0EF5-4C18-AAA3-60E5AB741B5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{D443F507-085B-4125-8BB9-180EC4292996}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Codeit.Infrastructure.Identity\Directory.Build.props = ..\..\Codeit.Infrastructure.Identity\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Identity.Model", "..\..\Codeit.Infrastructure.Identity\Codeit.Infrastructure.Identity.Model\Codeit.Infrastructure.Identity.Model.csproj", "{CDC8C0D5-51E0-46F8-A61E-B2F0720E8B69}"
 EndProject
