@@ -1,9 +1,21 @@
 version: '3.4'
 
 services:
-  trainersweb:
+
+  webapp:
     ports:
       - 8080:80
+
+  apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "7080:80"
+      - "7043:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   backoffice:
     environment:
@@ -21,8 +33,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "7180:80"
-      - "7143:443"
+      - "7280:80"
+      - "7243:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -35,20 +47,11 @@ services:
       - EventBusUserName=guest
       - EventBusPassword=guest
     ports:
-      - "7280:80"
-      - "7243:443"
+      - "7380:80"
+      - "7343:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
-  mssqlserver:
-    environment:
-      SA_PASSWORD: "Devadmin321"
-      ACCEPT_EULA: "Y"
-    ports:
-      - "5433:1433"
-    volumes:
-      - mssqlserver-data:/var/opt/mssql
 
   postgressql:
     environment:
@@ -91,3 +94,13 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+  schoolmngr.infrastructure.apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
