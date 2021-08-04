@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+
   webapp:
     image: ${DOCKER_REGISTRY:-schoolmngr}/frontend:${PLATFORM:-linux}-${TAG:-latest}
     container_name: webapp
@@ -10,6 +11,15 @@ services:
     restart: always
     depends_on: 
       - backoffice
+
+  apigateway:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/apigateway:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: infrastructure/apigateway/Dockerfile
+    depends_on: 
+      - backoffice
+      - academe
 
   backoffice:
     image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-latest}
@@ -32,18 +42,14 @@ services:
       - rabbitmq
 
   notification:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/notification:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: notification
+    image: ${DOCKER_REGISTRY:-schoolmngr}/notifications:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: notifications
     build:
       context: .
       dockerfile: microservices/notifications/SchoolMngr.Trainers.Notifications/Dockerfile
     depends_on:
       - postgressql
       - rabbitmq
-
-  mssqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssqlserver
 
   postgressql:
     image: postgres
@@ -60,7 +66,7 @@ services:
 
   rabbitmq:
      image: rabbitmq:3-management-alpine
-     container_name: rabbitmq        
+     container_name: rabbitmq
 
 networks:
   esnet:

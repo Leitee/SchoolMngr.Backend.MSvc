@@ -3,7 +3,7 @@
 /// </summary>
 namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
-    using Codeit.NetStdLibrary.Abstractions.Desentralized;
+    using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

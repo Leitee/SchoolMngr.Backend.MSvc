@@ -11,7 +11,6 @@ namespace SchoolMngr.Infrastructure.Shared.EventBus
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Codeit.NetStdLibrary.Abstractions.Desentralized;
 
     public class IntegrationEventLogService : IIntegrationEventLogService
     {
