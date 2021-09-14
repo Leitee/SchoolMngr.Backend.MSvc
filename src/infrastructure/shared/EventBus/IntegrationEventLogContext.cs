@@ -1,6 +1,4 @@
-﻿/// <summary>
-/// 
-/// </summary>
+﻿
 namespace SchoolMngr.Infrastructure.Shared.EventBus
 {
     using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;

@@ -15,20 +15,30 @@ namespace SchoolMngr.Infrastructure.Shared
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureTier(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, string sectionKey)
         {
-            var settings = SharedSettings.GetSettings(configuration ?? throw new ArgumentNullException(nameof(configuration)));
+            InfrastructureSettings infraSettings;
+            using (var servProv = services.BuildServiceProvider())
+            {
+                var config = servProv.GetService<IConfiguration>();
+                infraSettings = config.GetSection(sectionKey).Get<InfrastructureSettings>();
+            }
+
+            if (infraSettings is null)
+                throw new ArgumentNullException(nameof(infraSettings));
+
+            services.Configure<InfrastructureSettings>(sp => sp = infraSettings);
 
             services.AddDbContext<IntegrationEventLogContext>(op =>
             {
-                op.EnableDetailedErrors(settings.IsDevelopment);
-                op.EnableSensitiveDataLogging(settings.IsDevelopment);
+                op.EnableDetailedErrors(infraSettings.EnableDetailedDebug);
+                op.EnableSensitiveDataLogging(infraSettings.EnableDetailedDebug);
                 op.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 op.UseInMemoryDatabase("IntegrationEventLogDB");
             });
 
-            var useEventBus = settings.EventBus.UseEventBus;
-            services.AddIf(useEventBus, sc =>  sc.RegisterRabbitMQAsEventBus(settings));
+            var useEventBus = infraSettings.EventBus.UseEventBus;
+            services.AddIf(useEventBus, sc =>  sc.RegisterRabbitMQAsEventBus(infraSettings));
             services.AddIf(!useEventBus, sc => sc.AddSingleton<IEventBus, EventBusDummy>());
 
             services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService>();
@@ -37,7 +47,7 @@ namespace SchoolMngr.Infrastructure.Shared
             return services;
         }
 
-        private static IServiceCollection RegisterRabbitMQAsEventBus(this IServiceCollection services, SharedSettings settings)
+        private static IServiceCollection RegisterRabbitMQAsEventBus(this IServiceCollection services, InfrastructureSettings settings)
         {
             var retryCount = settings.EventBus.RetryCount;
 

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
+    <LangVersion>$(LangTargetVersion)</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

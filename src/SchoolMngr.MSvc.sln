@@ -13,6 +13,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{CA26C1B4-DE90-44AC-A0C1-16A413C91749}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "academe", "academe", "{D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}"
+	ProjectSection(SolutionItems) = preProject
+		microservices\academe\Directory.Build.props = microservices\academe\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E9E7A9A-8988-460E-B73C-EC702893179B}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitmodules = .gitmodules
 		.vsconfig = .vsconfig
 		Directory.Build.props = Directory.Build.props
+		infrastructure\apigateway\Dockerfile = infrastructure\apigateway\Dockerfile
+		infrastructure\apigateway\envoy.yaml = infrastructure\apigateway\envoy.yaml
 		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
@@ -31,8 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notifications", "notificati
 		microservices\notifications\Directory.Build.props = microservices\notifications\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Infrastructure.ApiGateway", "infrastructure\apigateway\SchoolMngr.Infrastructure.ApiGateway.csproj", "{422FD3E5-0E22-43AC-A223-1BBEA57CB063}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Infrastructure.Shared", "infrastructure\shared\SchoolMngr.Infrastructure.Shared.csproj", "{A8334BEF-E607-4312-9F8B-232B9152A262}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Infrastructure.Test", "infrastructure\test\SchoolMngr.Infrastructure.Test.csproj", "{26BBE350-9302-46B1-809B-93C0042218F6}"
@@ -41,7 +44,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe.Application", "microservices\academe\SchoolMngr.Services.Academe.Application\SchoolMngr.Services.Academe.Application.csproj", "{C960A76D-CEE0-4E8E-8636-E114C0F3DF8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe.Api", "microservices\academe\SchoolMngr.Services.Academe.Api\SchoolMngr.Services.Academe.Api.csproj", "{E0C4979E-F698-4E19-B565-3E9DD3445FA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe", "microservices\academe\SchoolMngr.Services.Academe.Api\SchoolMngr.Services.Academe.csproj", "{E0C4979E-F698-4E19-B565-3E9DD3445FA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Backoffice.Model", "microservices\admin\SchoolMngr.Services.Backoffice.Model\SchoolMngr.Services.Backoffice.Model.csproj", "{C221C6DF-6F93-4FD7-89AB-AA1E6EC7864F}"
 EndProject
@@ -49,9 +52,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Backoff
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Backoffice.BL", "microservices\admin\SchoolMngr.Services.Backoffice.BL\SchoolMngr.Services.Backoffice.BL.csproj", "{E0F3F93F-321A-40C3-B698-CDE8CE7FFC34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Backoffice", "microservices\admin\SchoolMngr.Services.Backoffice.Api\SchoolMngr.Services.Backoffice.csproj", "{8FED3C6E-83FC-4F99-8EC4-72DDDBA0EB98}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "base", "base", "{AA237227-6D7D-412E-8FBA-119EC5427184}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Codeit.NetStdLibrary.Base\Directory.Build.props = ..\..\Codeit.NetStdLibrary.Base\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{567DACB2-0EF5-4C18-AAA3-60E5AB741B5D}"
 EndProject
@@ -74,16 +78,30 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Notific
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Notifications.FunctionalTest", "microservices\notifications\SchoolMngr.Services.Notifications.Test\SchoolMngr.Services.Notifications.FunctionalTest.csproj", "{DF7BB6D4-9941-4910-8E01-7359B0D3D048}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Backoffice", "microservices\admin\SchoolMngr.Services.Backoffice\SchoolMngr.Services.Backoffice.csproj", "{D9A70014-5C0A-4C0B-A75A-8F188079296C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{2851FDFC-5710-4279-AD8C-7187F1A84306}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{1BF9CDB9-6245-45B2-9F13-FEFCCBA6CB28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe.Persistence", "microservices\academe\SchoolMngr.Services.Academe.Persistence\SchoolMngr.Services.Academe.Persistence.csproj", "{F1C9E995-F68B-43FA-94F5-41EB662FF9CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolMngr.Services.Academe.Infrastructure", "microservices\academe\SchoolMngr.Services.Academe.Infrastructure\SchoolMngr.Services.Academe.Infrastructure.csproj", "{177C8226-F022-40E9-A835-C0CA273D4FBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8C2503D1-B75B-45AB-BC00-A0E96869E453}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E18919E4-A03F-41AD-990B-39C15DDA9C67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FA469256-70AB-4DF2-B789-FF91F921B02F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0FE062AD-1C91-4E75-AA15-F582CCA222BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{422FD3E5-0E22-43AC-A223-1BBEA57CB063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{422FD3E5-0E22-43AC-A223-1BBEA57CB063}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{422FD3E5-0E22-43AC-A223-1BBEA57CB063}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{422FD3E5-0E22-43AC-A223-1BBEA57CB063}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A8334BEF-E607-4312-9F8B-232B9152A262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A8334BEF-E607-4312-9F8B-232B9152A262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8334BEF-E607-4312-9F8B-232B9152A262}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -116,10 +134,6 @@ Global
 		{E0F3F93F-321A-40C3-B698-CDE8CE7FFC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0F3F93F-321A-40C3-B698-CDE8CE7FFC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0F3F93F-321A-40C3-B698-CDE8CE7FFC34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FED3C6E-83FC-4F99-8EC4-72DDDBA0EB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FED3C6E-83FC-4F99-8EC4-72DDDBA0EB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FED3C6E-83FC-4F99-8EC4-72DDDBA0EB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FED3C6E-83FC-4F99-8EC4-72DDDBA0EB98}.Release|Any CPU.Build.0 = Release|Any CPU
 		{567DACB2-0EF5-4C18-AAA3-60E5AB741B5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{567DACB2-0EF5-4C18-AAA3-60E5AB741B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{567DACB2-0EF5-4C18-AAA3-60E5AB741B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -152,6 +166,18 @@ Global
 		{DF7BB6D4-9941-4910-8E01-7359B0D3D048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF7BB6D4-9941-4910-8E01-7359B0D3D048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF7BB6D4-9941-4910-8E01-7359B0D3D048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A70014-5C0A-4C0B-A75A-8F188079296C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A70014-5C0A-4C0B-A75A-8F188079296C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A70014-5C0A-4C0B-A75A-8F188079296C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A70014-5C0A-4C0B-A75A-8F188079296C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C9E995-F68B-43FA-94F5-41EB662FF9CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C9E995-F68B-43FA-94F5-41EB662FF9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C9E995-F68B-43FA-94F5-41EB662FF9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C9E995-F68B-43FA-94F5-41EB662FF9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{177C8226-F022-40E9-A835-C0CA273D4FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177C8226-F022-40E9-A835-C0CA273D4FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177C8226-F022-40E9-A835-C0CA273D4FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177C8226-F022-40E9-A835-C0CA273D4FBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,16 +186,14 @@ Global
 		{7D2C5D3D-7E49-4481-B9B2-BD2BE1619877} = {9215CA38-1706-4E8F-89E4-049C460609D2}
 		{D1D07BFD-B353-4D2E-9D00-DFAF0CB47148} = {9215CA38-1706-4E8F-89E4-049C460609D2}
 		{AAA09C78-AB41-47AD-8642-4CE755EDD323} = {9215CA38-1706-4E8F-89E4-049C460609D2}
-		{422FD3E5-0E22-43AC-A223-1BBEA57CB063} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 		{A8334BEF-E607-4312-9F8B-232B9152A262} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
-		{26BBE350-9302-46B1-809B-93C0042218F6} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
-		{8236C030-B150-48BB-BDD5-1F3C029BF5BA} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
-		{C960A76D-CEE0-4E8E-8636-E114C0F3DF8D} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
+		{26BBE350-9302-46B1-809B-93C0042218F6} = {0FE062AD-1C91-4E75-AA15-F582CCA222BA}
+		{8236C030-B150-48BB-BDD5-1F3C029BF5BA} = {2851FDFC-5710-4279-AD8C-7187F1A84306}
+		{C960A76D-CEE0-4E8E-8636-E114C0F3DF8D} = {2851FDFC-5710-4279-AD8C-7187F1A84306}
 		{E0C4979E-F698-4E19-B565-3E9DD3445FA2} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
 		{C221C6DF-6F93-4FD7-89AB-AA1E6EC7864F} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{3C5D8EC0-9DF9-4572-9E0F-5CC0A3CBBAE2} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{E0F3F93F-321A-40C3-B698-CDE8CE7FFC34} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
-		{8FED3C6E-83FC-4F99-8EC4-72DDDBA0EB98} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
 		{AA237227-6D7D-412E-8FBA-119EC5427184} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 		{D443F507-085B-4125-8BB9-180EC4292996} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 		{CDC8C0D5-51E0-46F8-A61E-B2F0720E8B69} = {D443F507-085B-4125-8BB9-180EC4292996}
@@ -178,7 +202,16 @@ Global
 		{59D6E94C-2F3C-47D3-8975-6A61AD64B785} = {AA237227-6D7D-412E-8FBA-119EC5427184}
 		{A1D8313F-B426-4BF3-8238-135436E35DA8} = {AA237227-6D7D-412E-8FBA-119EC5427184}
 		{1D872445-1F35-43F4-8E71-28083B4FB09D} = {AAA09C78-AB41-47AD-8642-4CE755EDD323}
-		{DF7BB6D4-9941-4910-8E01-7359B0D3D048} = {AAA09C78-AB41-47AD-8642-4CE755EDD323}
+		{DF7BB6D4-9941-4910-8E01-7359B0D3D048} = {8C2503D1-B75B-45AB-BC00-A0E96869E453}
+		{D9A70014-5C0A-4C0B-A75A-8F188079296C} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
+		{2851FDFC-5710-4279-AD8C-7187F1A84306} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
+		{1BF9CDB9-6245-45B2-9F13-FEFCCBA6CB28} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
+		{F1C9E995-F68B-43FA-94F5-41EB662FF9CE} = {1BF9CDB9-6245-45B2-9F13-FEFCCBA6CB28}
+		{177C8226-F022-40E9-A835-C0CA273D4FBF} = {1BF9CDB9-6245-45B2-9F13-FEFCCBA6CB28}
+		{8C2503D1-B75B-45AB-BC00-A0E96869E453} = {AAA09C78-AB41-47AD-8642-4CE755EDD323}
+		{E18919E4-A03F-41AD-990B-39C15DDA9C67} = {D1D07BFD-B353-4D2E-9D00-DFAF0CB47148}
+		{FA469256-70AB-4DF2-B789-FF91F921B02F} = {7D2C5D3D-7E49-4481-B9B2-BD2BE1619877}
+		{0FE062AD-1C91-4E75-AA15-F582CCA222BA} = {CA26C1B4-DE90-44AC-A0C1-16A413C91749}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5D651724-D39C-4388-B785-F5A5C30E1852}

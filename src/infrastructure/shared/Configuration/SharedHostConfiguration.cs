@@ -1,6 +1,4 @@
-﻿/// <summary>
-/// 
-/// </summary>
+﻿
 namespace SchoolMngr.Infrastructure.Shared.Configuration
 {
     using Microsoft.Extensions.Configuration;
@@ -18,7 +16,6 @@ namespace SchoolMngr.Infrastructure.Shared.Configuration
             //var logstashUrl = configuration["Serilog:LogstashgUrl"];
             return new LoggerConfiguration()
                 .Enrich.WithProperty("ApplicationName", appName)
-                .Enrich.WithProperty("Environment", environmentName)
                 .Enrich.FromLogContext()
                 //.WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://seq" : seqServerUrl)
                 //.WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://logstash:8080" : logstashUrl)

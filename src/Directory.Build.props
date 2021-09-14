@@ -1,24 +1,42 @@
 <Project>
+  
   <PropertyGroup Label="SDK Versions">
     <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
     <NetCoreTargetVersion>net5.0</NetCoreTargetVersion>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Assembly information">
+    <Authors>Leonardo Moreno</Authors>
+    <Company>Codeit Corp</Company>
+    <Copyright>Copyright © Codeit 2019</Copyright>
+    <OutputType>Library</OutputType>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
   
   <PropertyGroup Label="Package Versions">
-    <LangVersion>latest</LangVersion>
-    <CodeitBaseVersion>2.0.0</CodeitBaseVersion>
+    <CodeitBaseVersion>0.9.1</CodeitBaseVersion>
     <SchoolMngrServicesSharedVersion>0.5.0</SchoolMngrServicesSharedVersion>
-    <EFVersion>5.0.7</EFVersion>
+    <EFVersion>5.0.9</EFVersion>
     <MSConfiguration>5.0.0</MSConfiguration>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!--<PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.9.1" />-->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
+  </ItemGroup>
+
   <!--TODO: why is not working-->
-  <ItemGroup >
+  <!--<ItemGroup >
     <PackageReference Update="Microsoft.EntityFrameworkCore" Version="$(EFVersion)" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersion)" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="$(EFVersion)" />
     <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="$(MSConfiguration)" />
     <PackageReference Update="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(MSConfiguration)" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

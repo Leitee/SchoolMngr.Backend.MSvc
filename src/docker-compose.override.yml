@@ -7,15 +7,14 @@ services:
       - 8080:80
 
   apigateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "7080:80"
-      - "7043:443"
+      - "9901:9901"
+      - "10000:10000"
+      - "10001:10001"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ./infrastructure/apigateway/envoy.yaml:/etc/envoy/envoy.yaml
+      - ./infrastructure/apigateway/https.crt:/etc/ssl/certs/https.crt
+      - ./infrastructure/apigateway/key.pem:/etc/ssl/certs/key.pem
 
   backoffice:
     environment:

@@ -13,10 +13,8 @@ services:
       - backoffice
 
   apigateway:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/apigateway:${PLATFORM:-linux}-${TAG:-latest}
-    build:
-      context: .
-      dockerfile: infrastructure/apigateway/Dockerfile
+    container_name: apigateway
+    build: infrastructure/apigateway/
     depends_on: 
       - backoffice
       - academe
