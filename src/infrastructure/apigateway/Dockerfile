@@ -1,5 +1,3 @@
-FROM envoyproxy/envoy:v1.14.1
-AS apigateway
-
+FROM envoyproxy/envoy:v1.18.4
 
 COPY envoy.yaml /etc/envoy/envoy.yaml

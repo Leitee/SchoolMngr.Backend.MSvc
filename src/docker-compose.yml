@@ -12,9 +12,9 @@ services:
     depends_on: 
       - backoffice
 
-  apigateway:
-    container_name: apigateway
-    build: infrastructure/apigateway/
+  envoygateway:
+    build: 
+      context: infrastructure/apigateway/
     depends_on: 
       - backoffice
       - academe
@@ -71,5 +71,4 @@ networks:
 
 volumes:
   postgressql-data:
-  mssqlserver-data:
   elasticsearch-data:

@@ -6,7 +6,6 @@
     <ProjectGuid>567dacb2-0ef5-4c18-aaa3-60e5ab741b5d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>fitnner.trainers.backoffice.app</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

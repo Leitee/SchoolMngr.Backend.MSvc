@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:80
 
-  apigateway:
+  envoygateway:
     ports:
       - "9901:9901"
       - "10000:10000"
@@ -93,13 +93,3 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-  schoolmngr.infrastructure.apigateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "80"
-      - "443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
