@@ -2,10 +2,6 @@ version: '3.4'
 
 services:
 
-  webapp:
-    ports:
-      - 8080:80
-
   envoygateway:
     ports:
       - "9901:9901"
@@ -16,41 +12,27 @@ services:
       - ./infrastructure/apigateway/https.crt:/etc/ssl/certs/https.crt
       - ./infrastructure/apigateway/key.pem:/etc/ssl/certs/key.pem
 
-  backoffice:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "7180:80"
-      - "7143:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  #backoffice:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_URLS=https://+:443;http://+:80
+  #  ports:
+  #    - "7180:80"
+  #    - "7143:443"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-  academe:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "7280:80"
-      - "7243:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-
-  notification:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - EventBusConnection=192.168.1.10
-      - EventBusUserName=guest
-      - EventBusPassword=guest
-    ports:
-      - "7380:80"
-      - "7343:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  #academe:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_URLS=https://+:443;http://+:80
+  #  ports:
+  #    - "7280:80"
+  #    - "7243:443"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   postgressql:
     environment:

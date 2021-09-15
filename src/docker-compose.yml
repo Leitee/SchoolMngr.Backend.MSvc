@@ -2,52 +2,33 @@ version: '3.4'
 
 services:
 
-  webapp:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/frontend:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: webapp
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    restart: always
-    depends_on: 
-      - backoffice
-
   envoygateway:
+    container_name: envoygateway
     build: 
       context: infrastructure/apigateway/
     depends_on: 
       - backoffice
       - academe
 
-  backoffice:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: backoffice
-    build:
-      context: .
-      dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
-    depends_on:
-      - postgressql
-      - rabbitmq
+  #backoffice:
+  #  image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-latest}
+  #  container_name: backoffice
+  #  build:
+  #    context: .
+  #    dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
+  #  depends_on:
+  #    - postgressql
+  #    - rabbitmq
 
-  academe:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: academe
-    build:
-      context: .
-      dockerfile: microservices/academe/SchoolMngr.Services.Academe/Dockerfile
-    depends_on:
-      - postgressql
-      - rabbitmq
-
-  notification:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/notifications:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: notifications
-    build:
-      context: .
-      dockerfile: microservices/notifications/SchoolMngr.Trainers.Notifications/Dockerfile
-    depends_on:
-      - postgressql
-      - rabbitmq
+  #academe:
+  #  image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-latest}
+  #  container_name: academe
+  #  build:
+  #    context: .
+  #    dockerfile: microservices/academe/SchoolMngr.Services.Academe/Dockerfile
+  #  depends_on:
+  #    - postgressql
+  #    - rabbitmq
 
   postgressql:
     image: postgres

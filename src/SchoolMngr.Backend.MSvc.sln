@@ -20,15 +20,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E9E7A9A-8988-460E-B73C-EC702893179B}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		.gitignore = .gitignore
-		.gitmodules = .gitmodules
+		..\.gitignore = ..\.gitignore
+		..\.gitmodules = ..\.gitmodules
 		.vsconfig = .vsconfig
 		Directory.Build.props = Directory.Build.props
 		infrastructure\apigateway\Dockerfile = infrastructure\apigateway\Dockerfile
 		infrastructure\apigateway\envoy.yaml = infrastructure\apigateway\envoy.yaml
 		global.json = global.json
-		LICENSE = LICENSE
-		README.md = README.md
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notifications", "notifications", "{AAA09C78-AB41-47AD-8642-4CE755EDD323}"
