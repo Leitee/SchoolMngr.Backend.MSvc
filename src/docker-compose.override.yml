@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
 
-  envoygateway:
+  envoy:
     ports:
       - "9901:9901"
       - "10000:10000"
@@ -33,6 +33,16 @@ services:
   #  volumes:
   #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  notifications:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7380:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   postgressql:
     environment:

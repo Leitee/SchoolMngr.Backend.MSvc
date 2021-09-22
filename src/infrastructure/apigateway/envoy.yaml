@@ -27,10 +27,6 @@ static_resources:
               domains: ["*"]
               routes:
               - match:
-                  prefix: "/"
-                route:
-                  host_rewrite: "www.google.com"                  
-              - match:
                   prefix: "/backoffice"
                 route:
                   prefix_rewrite: "/backoffice"
@@ -105,7 +101,7 @@ static_resources:
     dns_lookup_family: V4_ONLY
     lb_policy: ROUND_ROBIN
     load_assignment:
-      cluster_name: tea_service
+      cluster_name: academe
       endpoints:
       - lb_endpoints:
         - endpoint:

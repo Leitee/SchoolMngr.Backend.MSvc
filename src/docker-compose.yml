@@ -2,13 +2,10 @@ version: '3.4'
 
 services:
 
-  envoygateway:
-    container_name: envoygateway
-    build: 
-      context: infrastructure/apigateway/
-    depends_on: 
-      - backoffice
-      - academe
+  envoy:
+    image: envoyproxy/envoy:v1.16.5
+    container_name: envoy
+    restart: always
 
   #backoffice:
   #  image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-latest}
@@ -29,6 +26,15 @@ services:
   #  depends_on:
   #    - postgressql
   #    - rabbitmq
+
+  notifications:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/notifications:${PLATFORM:-linux}-${TAG:-latest}
+    container_name: SchoolMngr.Notifications
+    build:
+      context: .
+      dockerfile: microservices/notifications/SchoolMngr.Services.Notifications/Dockerfile
+    depends_on:
+      - rabbitmq
 
   postgressql:
     image: postgres
