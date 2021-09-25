@@ -1,3 +1,15 @@
+[submodule "src/infrastructure/base"]
+	path = src/infrastructure/base
+	url = https://github.com/Leitee/Codeit.NetStdLibrary.Base.git
+	branch = develop
+	ignore = dirty
+
+[submodule "src/infrastructure/identity"]
+	path = src/infrastructure/identity
+	url = https://github.com/Leitee/Codeit.Infrastructure.Identity.git
+	branch = develop
+	ignore = dirty
+
 [submodule "src/microservices/notifications"]
 	path = src/microservices/notifications
 	url = https://github.com/Leitee/SchoolMngr.Services.Notifications.git
