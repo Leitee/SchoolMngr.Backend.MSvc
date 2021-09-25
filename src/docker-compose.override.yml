@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
 
-  envoy:
+  apigateway:
     ports:
       - "9901:9901"
       - "10000:10000"
@@ -44,7 +44,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-  postgressql:
+  sqldb:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "Devadmin321"
@@ -54,7 +54,7 @@ services:
     volumes:
       - postgressql-data:/var/opt/pgsql
 
-  elasticsearch:
+  nosqldb:
     environment:
       - node.name=nosql01
       - cluster.initial_master_nodes=nosql01
@@ -81,7 +81,7 @@ services:
     networks:
       - esnet
 
-  rabbitmq:
+  msbroker:
     ports:
       - "15672:15672"
       - "5672:5672"

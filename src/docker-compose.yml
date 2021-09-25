@@ -2,13 +2,13 @@ version: '3.4'
 
 services:
 
-  envoy:
+  apigateway:
     image: envoyproxy/envoy:v1.16.5
-    container_name: envoy
+    container_name: apigateway
     restart: always
 
   #backoffice:
-  #  image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-latest}
+  #  image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-dev}
   #  container_name: backoffice
   #  build:
   #    context: .
@@ -18,7 +18,7 @@ services:
   #    - rabbitmq
 
   #academe:
-  #  image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-latest}
+  #  image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-dev}
   #  container_name: academe
   #  build:
   #    context: .
@@ -28,30 +28,30 @@ services:
   #    - rabbitmq
 
   notifications:
-    image: ${DOCKER_REGISTRY:-schoolmngr}/notifications:${PLATFORM:-linux}-${TAG:-latest}
-    container_name: SchoolMngr.Notifications
+    image: ${DOCKER_REGISTRY:-schoolmngr}/notifications:${PLATFORM:-linux}-${TAG:-dev}
+    container_name: notifications
     build:
       context: .
       dockerfile: microservices/notifications/SchoolMngr.Services.Notifications/Dockerfile
     depends_on:
-      - rabbitmq
+      - msbroker
 
-  postgressql:
+  sqldb:
     image: postgres
-    container_name: postgressql
+    container_name: sqldb
     restart: always
 
-  elasticsearch:
-     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0-amd64
-     container_name: elasticsearch
+  nosqldb:
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
+     container_name: nosqldb
 
   kibana:
-     image: docker.elastic.co/kibana/kibana:7.9.0
+     image: docker.elastic.co/kibana/kibana:7.14.1
      container_name: kibana
 
-  rabbitmq:
-     image: rabbitmq:3-management-alpine
-     container_name: rabbitmq
+  msbroker:
+     image: rabbitmq:3.9.5-management
+     container_name: msbroker
 
 networks:
   esnet:
