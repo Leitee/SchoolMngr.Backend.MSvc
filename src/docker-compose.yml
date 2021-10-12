@@ -7,6 +7,15 @@ services:
     container_name: apigateway
     restart: always
 
+  identity:
+    image: ${DOCKER_REGISTRY-codeit}/identity:${PLATFORM:-linux}-${TAG:-dev}
+    container_name: identity
+    build:
+      context: .
+      dockerfile: infrastructure/identity/Codeit.Infrastructure.Identity/Dockerfile
+    depends_on:
+      - sqldb
+
   #backoffice:
   #  image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-dev}
   #  container_name: backoffice
@@ -14,7 +23,7 @@ services:
   #    context: .
   #    dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
   #  depends_on:
-  #    - postgressql
+  #    - sqldb
   #    - rabbitmq
 
   #academe:
@@ -24,7 +33,7 @@ services:
   #    context: .
   #    dockerfile: microservices/academe/SchoolMngr.Services.Academe/Dockerfile
   #  depends_on:
-  #    - postgressql
+  #    - sqldb
   #    - rabbitmq
 
   notifications:
@@ -37,16 +46,16 @@ services:
       - msbroker
 
   sqldb:
-    image: postgres
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sqldb
     restart: always
 
   nosqldb:
-     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
      container_name: nosqldb
 
   kibana:
-     image: docker.elastic.co/kibana/kibana:7.14.1
+     image: docker.elastic.co/kibana/kibana:7.15.0
      container_name: kibana
 
   msbroker:
@@ -54,8 +63,8 @@ services:
      container_name: msbroker
 
 networks:
-  esnet:
+  elknet:
 
 volumes:
-  postgressql-data:
-  elasticsearch-data:
+  sqldb-data:
+  nosqldb-data:

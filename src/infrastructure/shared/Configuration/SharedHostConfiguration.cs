@@ -1,44 +1,69 @@
 ﻿
 namespace SchoolMngr.Infrastructure.Shared.Configuration
 {
+    using Codeit.NetStdLibrary.Base.Common;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Hosting;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using Serilog;
-    using System.IO;
+    using Serilog.Events;
+    using Serilog.Formatting.Elasticsearch;
+    using Serilog.Sinks.Elasticsearch;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
 
     public static class SharedHostConfiguration
     {
-        private static string environmentName = EnvironmentName.Development;
+        public const string ApplicationName = nameof(ApplicationName);
 
         public static ILogger CreateSerilogLogger(string appName)
         {
-            //var seqServerUrl = configuration["Serilog:SeqServerUrl"];
-            //var logstashUrl = configuration["Serilog:LogstashgUrl"];
             return new LoggerConfiguration()
-                .Enrich.WithProperty("ApplicationName", appName)
-                .Enrich.FromLogContext()
-                //.WriteTo.Seq(string.IsNullOrWhiteSpace(seqServerUrl) ? "http://seq" : seqServerUrl)
-                //.WriteTo.Http(string.IsNullOrWhiteSpace(logstashUrl) ? "http://logstash:8080" : logstashUrl)
-                .ReadFrom.Configuration(GetBasicConfiguration())
-                .CreateLogger();
+             .ReadFrom.Configuration(BuildDefaultSettings())
+             .Enrich.WithProperty(ApplicationName, appName)
+             .Enrich.WithEnvironmentName()
+             .Enrich.WithMachineName()
+             .Enrich.FromLogContext()
+             .CreateLogger();
         }
 
-        public static IConfiguration GetBasicConfiguration()
+        public static IConfiguration BuildDefaultSettings()
         {
             return BuildDefaultSettings(new ConfigurationBuilder());
         }
 
         public static IConfiguration BuildDefaultSettings(IConfigurationBuilder configurationBuilder)
         {
-            var basePath = Directory.GetCurrentDirectory();
-            var configuration = configurationBuilder
-                .SetBasePath(basePath)
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
+            return CodeitUtils.BuildDefaultSettings(configurationBuilder);
+        }
 
-            return configuration;
+        private static ElasticsearchSinkOptions ConfigureElasticSink(IConfiguration configuration, string environment = "Dev")
+        {
+            return new ElasticsearchSinkOptions(new Uri(configuration["Serilog:ElasticConfiguration"]))
+            {
+                BufferCleanPayload = (failingEvent, statuscode, exception) =>
+                {
+                    dynamic e = JObject.Parse(failingEvent);
+                    return JsonConvert.SerializeObject(new Dictionary<string, object>()
+                    {
+                        { "@timestamp",e["@timestamp"]},
+                        { "level","Error"},
+                        { "message","Error: "+e.message},
+                        { "messageTemplate",e.messageTemplate},
+                        { "failingStatusCode", statuscode},
+                        { "failingException", exception}
+                    });
+                },
+                MinimumLogEventLevel = LogEventLevel.Verbose,
+                AutoRegisterTemplate = true,
+                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
+                CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true),
+                IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+                EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
+                                       EmitEventFailureHandling.WriteToFailureSink |
+                                       EmitEventFailureHandling.RaiseCallback
+            };
         }
     }
 }

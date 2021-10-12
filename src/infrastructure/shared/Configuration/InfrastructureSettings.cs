@@ -18,6 +18,7 @@ namespace SchoolMngr.Infrastructure.Shared.Configuration
 
     public class DigestLogger
     {
+        public bool UseLogger { get; set; }
         public string ServerUrl { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

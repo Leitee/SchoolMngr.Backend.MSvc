@@ -4,32 +4,42 @@ services:
 
   apigateway:
     ports:
-      - "9901:9901"
-      - "10000:10000"
-      - "10001:10001"
+      - "7000:9901"
+      - "7080:10000"
+      - "7043:10001"
     volumes:
       - ./infrastructure/apigateway/envoy.yaml:/etc/envoy/envoy.yaml
       - ./infrastructure/apigateway/https.crt:/etc/ssl/certs/https.crt
       - ./infrastructure/apigateway/key.pem:/etc/ssl/certs/key.pem
 
+  identity:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7580:80"
+      #- "7543:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      #- ./infrastructure/identity/Codeit.Infrastructure.Identity/tempkey.jwk:/etc/ssl/certs/tempkey.jwk
+
   #backoffice:
   #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ASPNETCORE_URLS=https://+:443;http://+:80
+  #    - ASPNETCORE_ENVIRONMENT=Docker
+  #    - ASPNETCORE_URLS=http://+:80
   #  ports:
   #    - "7180:80"
-  #    - "7143:443"
   #  volumes:
   #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   #academe:
   #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ASPNETCORE_URLS=https://+:443;http://+:80
+  #    - ASPNETCORE_ENVIRONMENT=Docker
+  #    - ASPNETCORE_URLS=http://+:80
   #  ports:
   #    - "7280:80"
-  #    - "7243:443"
   #  volumes:
   #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -46,21 +56,21 @@ services:
 
   sqldb:
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "Devadmin321"
-      POSTGRES_DB: "SchoolMngr_Backoffice"
+      SA_PASSWORD: "Devadmin321"
+      ACCEPT_EULA: "Y"
     ports:
-      - "5432:5432"
+      - "5433:1433"
     volumes:
-      - postgressql-data:/var/opt/pgsql
+      - sqldb-data:/var/opt/mssql
 
   nosqldb:
     environment:
-      - node.name=nosql01
-      - cluster.initial_master_nodes=nosql01
-      - cluster.name=docker-cluster
+      - node.name=es01
+      - cluster.initial_master_nodes=es01
+      - cluster.name=es-docker-cluster
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"    
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      #- ELASTIC_PASSWORD=Devadmin321 # password for default user: elastic 
     ulimits:
       memlock:
         soft: -1
@@ -69,17 +79,22 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
-    networks:
-      - esnet
+      - nosqldb-data:/usr/share/elasticsearch/data
+    #networks:
+    #  - elknet
 
   kibana:
+    environment:
+      SERVER_NAME: schoolmngr.kibana
+      ELASTICSEARCH_HOSTS: '["http://nosqldb:9200"]'
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: Devadmin321
     ports:
       - "5601:5601"
     depends_on:
-      - elasticsearch
-    networks:
-      - esnet
+      - nosqldb
+    #networks:
+    #  - elknet
 
   msbroker:
     ports:
