@@ -15,19 +15,19 @@ namespace SchoolMngr.Infrastructure.Shared
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, string sectionKey)
+        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, string sectionKey)
         {
-            InfrastructureSettings infraSettings;
+            INFRASettings infraSettings;
             using (var servProv = services.BuildServiceProvider())
             {
                 var config = servProv.GetService<IConfiguration>();
-                infraSettings = config.GetSection(sectionKey).Get<InfrastructureSettings>();
+                infraSettings = config.GetSection(sectionKey).Get<INFRASettings>();
             }
 
             if (infraSettings is null)
                 throw new ArgumentNullException(nameof(infraSettings));
 
-            services.Configure<InfrastructureSettings>(sp => sp = infraSettings);
+            services.Configure<INFRASettings>(sp => sp = infraSettings);
 
             services.AddDbContext<IntegrationEventLogContext>(op =>
             {
@@ -47,7 +47,7 @@ namespace SchoolMngr.Infrastructure.Shared
             return services;
         }
 
-        private static IServiceCollection RegisterRabbitMQAsEventBus(this IServiceCollection services, InfrastructureSettings settings)
+        private static IServiceCollection RegisterRabbitMQAsEventBus(this IServiceCollection services, INFRASettings settings)
         {
             var retryCount = settings.EventBus.RetryCount;
 

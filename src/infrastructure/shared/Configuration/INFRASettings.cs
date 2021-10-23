@@ -1,12 +1,19 @@
 ﻿
 namespace SchoolMngr.Infrastructure.Shared.Configuration
 {
-    public class InfrastructureSettings
+    public class INFRASettings
     {
+        public const string SectionKey = "InfraSection";
+
         public EventBus EventBus { get; set; }
         public DigestLogger DigestLogger { get; set; }
         public IdentityServer IdentityServer { get; set; }
         public bool EnableDetailedDebug { get; set; }
+
+        public override string ToString()
+        {
+            return nameof(INFRASettings);
+        }
     }
 
     public class IdentityServer

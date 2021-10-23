@@ -16,15 +16,15 @@ services:
     depends_on:
       - sqldb
 
-  #backoffice:
-  #  image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-dev}
-  #  container_name: backoffice
-  #  build:
-  #    context: .
-  #    dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
-  #  depends_on:
-  #    - sqldb
-  #    - rabbitmq
+  backoffice:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-dev}
+    container_name: backoffice
+    build:
+      context: .
+      dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
+    depends_on:
+      - sqldb
+      - msbroker
 
   #academe:
   #  image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-dev}
