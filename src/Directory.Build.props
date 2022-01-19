@@ -1,9 +1,8 @@
 <Project>
   
   <PropertyGroup Label="SDK Versions">
-    <NetStandardTargetVersion>netstandard2.1</NetStandardTargetVersion>
-    <NetCoreTargetVersion>net5.0</NetCoreTargetVersion>
-    <LangVersion>latest</LangVersion>
+	<TargetFramework>net6.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
   </PropertyGroup>
   
   <PropertyGroup Label="Assembly information">
@@ -15,18 +14,18 @@
   </PropertyGroup>
   
   <PropertyGroup Label="Package Versions">
-    <CodeitBaseVersion>0.9.1</CodeitBaseVersion>
+    <CodeitBaseVersion>0.10.0</CodeitBaseVersion>
     <SchoolMngrServicesSharedVersion>0.5.0</SchoolMngrServicesSharedVersion>
-    <EFVersion>5.0.11</EFVersion>
-    <MSConfiguration>5.0.0</MSConfiguration>
+    <EFVersion>6.0.1</EFVersion>
+    <MSConfiguration>6.0.0</MSConfiguration>
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.9.1" />-->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
+    <!--<PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.10.0" />-->
     <ProjectReference Include="..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
   </ItemGroup>
 

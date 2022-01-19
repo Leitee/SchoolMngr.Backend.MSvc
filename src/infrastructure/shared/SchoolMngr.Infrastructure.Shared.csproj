@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(NetStandardTargetVersion)</TargetFramework>
     <Description>A base library to support microservices comunication and shared configuration.</Description>
   </PropertyGroup>
 
@@ -17,15 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EFVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersion)" />
-    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(EFVersion)" />-->
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(MSConfiguration)" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(MSConfiguration)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EFVersion)" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
-    <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />
   </ItemGroup>
 
 
