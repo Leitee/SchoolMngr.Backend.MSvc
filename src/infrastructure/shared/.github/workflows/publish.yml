@@ -1,0 +1,44 @@
+name: publish to nuget
+
+varibles:
+- name: projPath
+  value: src/infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj
+- name: testPath
+  value: src/infrastructure/test/SchoolMngr.Infrastructure.Test.csproj
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:    
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.9.0
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore
+      run: dotnet restore ${{ variables.projPath }}
+
+    - name: Build
+      run: dotnet build ${{ variables.projPath }} -c Release --no-restore
+
+    - name: Test
+      run: dotnet test ${{ variables.testPath }} -c Release --no-restore --no-build --verbosity normal
+
+  publish_base:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Pack
+      run: dotnet pack ${{ variables.projPath }} -c Release --no-restore --no-build -o .
+
+    - name: Publish
+      run: dotnet nuget push *.nupkg --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
