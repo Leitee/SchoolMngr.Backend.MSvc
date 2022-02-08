@@ -30,13 +30,8 @@ jobs:
     - name: Test
       run: dotnet test $TEST_PATH -c Release --no-restore --no-build --verbosity normal
 
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
     - name: Pack
-      run: dotnet pack src/infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj -c Release --no-restore --no-build -o .
+      run: dotnet pack $TEST_PATH -c Release --no-restore --no-build -o .
 
     - name: Publish
       run: dotnet nuget push *.nupkg --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
