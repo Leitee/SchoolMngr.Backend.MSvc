@@ -1,5 +1,9 @@
 name: publish to nuget
 
+env:
+  PROJ_PATH: src/infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj
+  TEST_PATH: src/infrastructure/test/SchoolMngr.Infrastructure.Test.csproj
+
 on:
   push:
     branches: [ master ]
@@ -18,15 +22,15 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore
-      run: dotnet restore
+      run: dotnet restore $PROJ_PATH
 
     - name: Build
-      run: dotnet build -c Release --no-restore
+      run: dotnet build $PROJ_PATH -c Release --no-restore
 
     - name: Test
-      run: dotnet test -c Release --no-restore --no-build --verbosity normal
+      run: dotnet test $TEST_PATH -c Release --no-restore --no-build --verbosity normal
 
-  publish_base:
+  publish:
     needs: build
     runs-on: ubuntu-latest
 
