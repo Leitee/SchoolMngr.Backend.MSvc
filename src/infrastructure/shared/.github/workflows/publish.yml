@@ -6,6 +6,11 @@ varibles:
 - name: testPath
   value: src/infrastructure/test/SchoolMngr.Infrastructure.Test.csproj
 
+env:
+  PROJ_PATH: src/infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj
+  TEST_PATH: src/infrastructure/test/SchoolMngr.Infrastructure.Test.csproj
+
+
 on:
   push:
     branches: [ master ]
@@ -24,13 +29,13 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore
-      run: dotnet restore ${{ variables.projPath }}
+      run: dotnet restore $PROJ_PATH
 
     - name: Build
-      run: dotnet build ${{ variables.projPath }} -c Release --no-restore
+      run: dotnet build $PROJ_PATH -c Release --no-restore
 
     - name: Test
-      run: dotnet test ${{ variables.testPath }} -c Release --no-restore --no-build --verbosity normal
+      run: dotnet test $TEST_PATH -c Release --no-restore --no-build --verbosity normal
 
   publish_base:
     needs: build
@@ -38,7 +43,7 @@ jobs:
 
     steps:
     - name: Pack
-      run: dotnet pack ${{ variables.projPath }} -c Release --no-restore --no-build -o .
+      run: dotnet pack $PROJ_PATH -c Release --no-restore --no-build -o .
 
     - name: Publish
       run: dotnet nuget push *.nupkg --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
