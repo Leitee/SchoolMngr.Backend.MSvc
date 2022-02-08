@@ -1,0 +1,102 @@
+version: '3.4'
+
+services:
+
+  apigateway:
+    ports:
+      - "7000:9901"
+      - "7080:10000"
+      - "7043:10001"
+    volumes:
+      - ./infrastructure/apigateway/envoy.yaml:/etc/envoy/envoy.yaml
+      - ./infrastructure/apigateway/https.crt:/etc/ssl/certs/https.crt
+      - ./infrastructure/apigateway/key.pem:/etc/ssl/certs/key.pem
+
+  identity:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7580:80"
+      #- "7543:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      #- ./infrastructure/identity/Codeit.Infrastructure.Identity/tempkey.jwk:/etc/ssl/certs/tempkey.jwk
+
+  backoffice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7180:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  #academe:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Docker
+  #    - ASPNETCORE_URLS=http://+:80
+  #  ports:
+  #    - "7280:80"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  notifications:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "7380:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  sqldb:
+    environment:
+      SA_PASSWORD: "Devadmin321"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "5433:1433"
+    volumes:
+      - sqldb-data:/var/opt/mssql
+
+  nosqldb:
+    environment:
+      - node.name=es01
+      - cluster.initial_master_nodes=es01
+      - cluster.name=es-docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      #- ELASTIC_PASSWORD=Devadmin321 # password for default user: elastic 
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - nosqldb-data:/usr/share/elasticsearch/data
+    #networks:
+    #  - elknet
+
+  kibana:
+    environment:
+      SERVER_NAME: schoolmngr.kibana
+      ELASTICSEARCH_HOSTS: '["http://nosqldb:9200"]'
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: Devadmin321
+    ports:
+      - "5601:5601"
+    depends_on:
+      - nosqldb
+    #networks:
+    #  - elknet
+
+  msbroker:
+    ports:
+      - "15672:15672"
+      - "5672:5672"

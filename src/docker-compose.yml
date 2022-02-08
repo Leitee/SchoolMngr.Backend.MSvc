@@ -1,0 +1,70 @@
+version: '3.4'
+
+services:
+
+  apigateway:
+    image: envoyproxy/envoy:v1.16.5
+    container_name: apigateway
+    restart: always
+
+  identity:
+    image: ${DOCKER_REGISTRY-codeit}/identity:${PLATFORM:-linux}-${TAG:-dev}
+    container_name: identity
+    build:
+      context: .
+      dockerfile: infrastructure/identity/Codeit.Infrastructure.Identity/Dockerfile
+    depends_on:
+      - sqldb
+
+  backoffice:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/backoffice:${PLATFORM:-linux}-${TAG:-dev}
+    container_name: backoffice
+    build:
+      context: .
+      dockerfile: microservices/admin/SchoolMngr.Services.Backoffice/Dockerfile
+    depends_on:
+      - sqldb
+      - msbroker
+
+  #academe:
+  #  image: ${DOCKER_REGISTRY:-schoolmngr}/academe:${PLATFORM:-linux}-${TAG:-dev}
+  #  container_name: academe
+  #  build:
+  #    context: .
+  #    dockerfile: microservices/academe/SchoolMngr.Services.Academe/Dockerfile
+  #  depends_on:
+  #    - sqldb
+  #    - rabbitmq
+
+  notifications:
+    image: ${DOCKER_REGISTRY:-schoolmngr}/notifications:${PLATFORM:-linux}-${TAG:-dev}
+    container_name: notifications
+    build:
+      context: .
+      dockerfile: microservices/notifications/SchoolMngr.Services.Notifications/Dockerfile
+    depends_on:
+      - msbroker
+
+  sqldb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqldb
+    restart: always
+
+  nosqldb:
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+     container_name: nosqldb
+
+  kibana:
+     image: docker.elastic.co/kibana/kibana:7.15.0
+     container_name: kibana
+
+  msbroker:
+     image: rabbitmq:3.9.5-management
+     container_name: msbroker
+
+networks:
+  elknet:
+
+volumes:
+  sqldb-data:
+  nosqldb-data:
