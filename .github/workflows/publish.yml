@@ -1,0 +1,37 @@
+name: publish to nuget
+
+env:
+  PROJ_PATH: src/infrastructure/shared/SchoolMngr.Infrastructure.Shared.csproj
+  TEST_PATH: src/infrastructure/test/SchoolMngr.Infrastructure.Test.csproj
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:    
+  build_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.9.0
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore
+      run: dotnet restore $PROJ_PATH
+
+    - name: Build
+      run: dotnet build $PROJ_PATH -c Release --no-restore
+
+    - name: Test
+      run: dotnet test $TEST_PATH -c Release --no-restore --no-build --verbosity normal
+
+    - name: Pack
+      run: dotnet pack $PROJ_PATH -c Release --no-restore --no-build -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -o .
+
+    - name: Publish
+      run: dotnet nuget push "*.nupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
