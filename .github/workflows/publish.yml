@@ -34,4 +34,4 @@ jobs:
       run: dotnet pack $TEST_PATH -c Release --no-restore --no-build -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -o .
 
     - name: Publish
-      run: dotnet nuget push *.nupkg --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
+      run: dotnet nuget push "*.nupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}}
