@@ -16,8 +16,6 @@
   
   <PropertyGroup Label="Package Versions">
     <CodeitBaseVersion>0.10.0</CodeitBaseVersion>
-    <EFVersion>6.0.1</EFVersion>
-    <MSConfiguration>6.0.0</MSConfiguration>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,16 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.10.0" />
-    <ProjectReference Include="..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
+    <!-- <ProjectReference Include="..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" /> -->
   </ItemGroup>
-
-  <!--TODO: why is not working-->
-  <!--<ItemGroup >
-    <PackageReference Update="Microsoft.EntityFrameworkCore" Version="$(EFVersion)" />
-    <PackageReference Update="Microsoft.EntityFrameworkCore.InMemory" Version="$(EFVersion)" />
-    <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="$(EFVersion)" />
-    <PackageReference Update="Microsoft.Extensions.Configuration.Json" Version="$(MSConfiguration)" />
-    <PackageReference Update="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(MSConfiguration)" />
-  </ItemGroup>-->
 
 </Project>
