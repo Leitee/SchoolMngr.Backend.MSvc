@@ -1,57 +1,45 @@
-﻿using SchoolMngr.Infrastructure.Shared.Configuration;
-using SchoolMngr.Infrastructure.Shared.EventBus;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
-using Codeit.NetStdLibrary.Base.Desentralized.EventBus;
-using Codeit.NetStdLibrary.Base.Desentralized.EventBusRabbitMQ;
-using Codeit.NetStdLibrary.Base.Tests;
-using RabbitMQ.Client;
-using System;
+﻿
+namespace SchoolMngr.Infrastructure.Shared;
 
-namespace SchoolMngr.Infrastructure.Shared
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, string sectionKey)
     {
-        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, string sectionKey)
+        INFRASettings infraSettings;
+        using (var servProv = services.BuildServiceProvider())
         {
-            INFRASettings infraSettings;
-            using (var servProv = services.BuildServiceProvider())
-            {
-                var config = servProv.GetService<IConfiguration>();
-                infraSettings = config.GetSection(sectionKey).Get<INFRASettings>();
-            }
-
-            if (infraSettings is null)
-                throw new ArgumentNullException(nameof(infraSettings));
-
-            services.Configure<INFRASettings>(sp => sp = infraSettings);
-
-            services.AddDbContext<IntegrationEventLogContext>(op =>
-            {
-                op.EnableDetailedErrors(infraSettings.EnableDetailedDebug);
-                op.EnableSensitiveDataLogging(infraSettings.EnableDetailedDebug);
-                op.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                op.UseInMemoryDatabase("IntegrationEventLogDB");
-            });
-
-            var useEventBus = infraSettings.EventBus.UseEventBus;
-            services.AddIf(useEventBus, sc =>  sc.RegisterRabbitMQAsEventBus(infraSettings));
-            services.AddIf(!useEventBus, sc => sc.AddSingleton<IEventBus, EventBusDummy>());
-
-            services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService>();
-            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-
-            return services;
+            var config = servProv.GetService<IConfiguration>();
+            infraSettings = config.GetSection(sectionKey).Get<INFRASettings>();
         }
 
-        private static IServiceCollection RegisterRabbitMQAsEventBus(this IServiceCollection services, INFRASettings settings)
-        {
-            var retryCount = settings.EventBus.RetryCount;
+        if (infraSettings is null)
+            throw new ArgumentNullException(nameof(infraSettings));
 
-            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+        services.Configure<INFRASettings>(sp => sp = infraSettings);
+
+        services.AddDbContext<IntegrationEventLogContext>(op =>
+        {
+            op.EnableDetailedErrors(infraSettings.EnableDetailedDebug);
+            op.EnableSensitiveDataLogging(infraSettings.EnableDetailedDebug);
+            op.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            op.UseInMemoryDatabase("IntegrationEventLogDB");
+        });
+
+        var useEventBus = infraSettings.EventBus.UseEventBus;
+        services.AddIf(useEventBus, sc => sc.RegisterEventBus(infraSettings));
+        services.AddIf(!useEventBus, sc => sc.AddSingleton<IEventBus, EventBusDummy>());
+
+        services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService>();
+        services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
+        return services;
+    }
+
+    private static IServiceCollection RegisterEventBus(this IServiceCollection services, INFRASettings settings)
+    {
+        services.AddIf(settings.IsDevelopment, sc =>
+        {
+            sc.AddSingleton<IRabbitMQPersistentConnection>(sp =>
             {
                 var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
 
@@ -65,26 +53,49 @@ namespace SchoolMngr.Infrastructure.Shared
                     Password = settings.EventBus.Password
                 };
 
-                return new DefaultRabbitMQPersistentConnection(factory, loggerFactory, retryCount);
+                return new DefaultRabbitMQPersistentConnection(factory, loggerFactory, settings.EventBus.RetryCount);
             });
 
-            services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
+            sc.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
             {
                 var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
                 var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
                 return new EventBusRabbitMQ(
-                    rabbitMQPersistentConnection, 
-                    loggerFactory, 
-                    sp, 
-                    eventBusSubcriptionsManager, 
-                    settings.EventBus.QuequeName, 
-                    retryCount
+                    rabbitMQPersistentConnection,
+                    loggerFactory,
+                    sp,
+                    eventBusSubcriptionsManager,
+                    settings.EventBus.QuequeName
                 );
             });
 
-            return services;
-        }
+            return sc;
+        });
+
+        services.AddIf(!settings.IsDevelopment, sc =>
+        {
+            sc.AddSingleton<IServiceBusPersisterConnection>(sp =>
+            {
+                var serviceBusConnectionString = settings.EventBus.Host;
+                return new DefaultServiceBusPersisterConnection(serviceBusConnectionString);
+            });
+
+            sc.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
+            {
+                var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
+                var logger = sp.GetRequiredService<ILoggerFactory>();
+                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                string subscriptionName = settings.EventBus.QuequeName;
+
+                return new EventBusServiceBus(serviceBusPersisterConnection, logger,
+                    eventBusSubcriptionsManager, subscriptionName, sp);
+            });
+
+            return sc;
+        });
+
+        return services;
     }
 }

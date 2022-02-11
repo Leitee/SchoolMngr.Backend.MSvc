@@ -1,40 +1,31 @@
 ﻿
-namespace SchoolMngr.Infrastructure.Shared.Configuration
+namespace SchoolMngr.Infrastructure.Shared.Configuration;
+
+public abstract class DesignTimeDbContextFactoryBase<TContext> :
+    IDesignTimeDbContextFactory<TContext> where TContext : DbContext
 {
-    using Codeit.NetStdLibrary.Base.Abstractions.DataAccess;
-    using Codeit.NetStdLibrary.Base.DataAccess;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-    using Microsoft.Extensions.Configuration;
-    using Newtonsoft.Json;
-    using System;
+    private readonly IConfiguration _configuration;
 
-    public abstract class DesignTimeDbContextFactoryBase<TContext> :
-        IDesignTimeDbContextFactory<TContext> where TContext : DbContext
+    public DesignTimeDbContextFactoryBase(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-
-        public DesignTimeDbContextFactoryBase(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        public TContext CreateDbContext(string[] args)
-        {
-            Console.WriteLine($"Creating instance of DesignTimeDbContextFactoryBase.CreatePersistenceBuilder.");
-            var setting = _configuration.GetSection(DALSettings.SectionKey).Get<DALSettings>();
-            Console.WriteLine($"Settings values:{JsonConvert.SerializeObject(setting)}");
-            var efPersistenceBuilder = CreatePersistenceBuilder(setting);
-
-            Console.WriteLine($"DesignTimeDbContextFactoryBase.CreatePersistenceBuilder instance created.");
-            var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-            efPersistenceBuilder.BuildConfiguration(optionsBuilder);
-
-            Console.WriteLine($"DesignTimeDbContextFactoryBase.CreateNewInstance.");
-            return CreateNewInstance(optionsBuilder.Options);
-        }
-
-        protected abstract IPersistenceBuilder CreatePersistenceBuilder(DALSettings settings);
-        protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
+        _configuration = configuration;
     }
+
+    public TContext CreateDbContext(string[] args)
+    {
+        Console.WriteLine($"Creating instance of DesignTimeDbContextFactoryBase.CreatePersistenceBuilder.");
+        var setting = _configuration.GetSection(DALSettings.SectionKey).Get<DALSettings>();
+        Console.WriteLine($"Settings values:{JsonSerializer.Serialize(setting)}");
+        var efPersistenceBuilder = CreatePersistenceBuilder(setting);
+
+        Console.WriteLine($"DesignTimeDbContextFactoryBase.CreatePersistenceBuilder instance created.");
+        var optionsBuilder = new DbContextOptionsBuilder<TContext>();
+        efPersistenceBuilder.BuildConfiguration(optionsBuilder);
+
+        Console.WriteLine($"DesignTimeDbContextFactoryBase.CreateNewInstance.");
+        return CreateNewInstance(optionsBuilder.Options);
+    }
+
+    protected abstract IPersistenceBuilder CreatePersistenceBuilder(DALSettings settings);
+    protected abstract TContext CreateNewInstance(DbContextOptions<TContext> options);
 }

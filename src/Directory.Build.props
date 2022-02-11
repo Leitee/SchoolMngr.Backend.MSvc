@@ -3,6 +3,8 @@
   <PropertyGroup Label="SDK Versions">
 	  <TargetFramework>net6.0</TargetFramework>
 	  <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <Version>0.1.0</Version>
   </PropertyGroup>
   
@@ -15,7 +17,7 @@
   </PropertyGroup>
   
   <PropertyGroup Label="Package Versions">
-    <CodeitBaseVersion>0.10.0</CodeitBaseVersion>
+    <CodeitBaseVersion>0.11.0</CodeitBaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.10.0" />
-    <!-- <ProjectReference Include="..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" /> -->
+    <!-- <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.11.0" /> -->
+    <ProjectReference Include="..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" />
   </ItemGroup>
 
 </Project>
