@@ -3,7 +3,8 @@ namespace SchoolMngr.Infrastructure.Shared.EventBus;
 
 public class IntegrationEventLogContext : DbContext
 {
-    public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options)
+    public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) 
+        : base(options)
     {
 
     }

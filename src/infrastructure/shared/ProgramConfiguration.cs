@@ -3,7 +3,8 @@ namespace SchoolMngr.Infrastructure.Shared;
 
 public static class ProgramConfiguration
 {
-    private static readonly string environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    private static readonly string environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") 
+        ?? throw new ArgumentNullException("ASPNETCORE_ENVIRONMENT");
 
     public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration, string appName)
     {

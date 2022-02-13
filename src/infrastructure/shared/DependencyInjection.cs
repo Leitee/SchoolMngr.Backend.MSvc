@@ -5,14 +5,14 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, string sectionKey)
     {
-        INFRASettings infraSettings;
+        INFRASettings? infraSettings;
         using (var servProv = services.BuildServiceProvider())
         {
             var config = servProv.GetService<IConfiguration>();
-            infraSettings = config.GetSection(sectionKey).Get<INFRASettings>();
+            infraSettings = config?.GetSection(sectionKey).Get<INFRASettings>();
         }
 
-        if (infraSettings is null)
+        if (infraSettings?.EventBus is null)
             throw new ArgumentNullException(nameof(infraSettings));
 
         services.Configure<INFRASettings>(sp => sp = infraSettings);
@@ -26,8 +26,8 @@ public static class DependencyInjection
         });
 
         var useEventBus = infraSettings.EventBus.UseEventBus;
-        services.AddIf(useEventBus, sc => sc.RegisterEventBus(infraSettings));
-        services.AddIf(!useEventBus, sc => sc.AddSingleton<IEventBus, EventBusDummy>());
+        services.AddIf(useEventBus is true, sc => sc.RegisterEventBus(infraSettings.EventBus, infraSettings.IsDevelopment));
+        services.AddIf(!useEventBus is true, sc => sc.AddSingleton<IEventBus, EventBusDummy>());
 
         services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService>();
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
@@ -35,9 +35,9 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection RegisterEventBus(this IServiceCollection services, INFRASettings settings)
+    private static IServiceCollection RegisterEventBus(this IServiceCollection services, EventBusSection eventBusSection, bool isDevEnvironment)
     {
-        services.AddIf(settings.IsDevelopment, sc =>
+        services.AddIf(isDevEnvironment, sc =>
         {
             sc.AddSingleton<IRabbitMQPersistentConnection>(sp =>
             {
@@ -47,13 +47,13 @@ public static class DependencyInjection
                 {
                     VirtualHost = "/",
                     DispatchConsumersAsync = true,
-                    HostName = settings.EventBus.Host,
-                    Port = settings.EventBus.Port,
-                    UserName = settings.EventBus.Username,
-                    Password = settings.EventBus.Password
+                    HostName = eventBusSection.Host,
+                    Port = eventBusSection.Port,
+                    UserName = eventBusSection.Username,
+                    Password = eventBusSection.Password
                 };
 
-                return new DefaultRabbitMQPersistentConnection(factory, loggerFactory, settings.EventBus.RetryCount);
+                return new DefaultRabbitMQPersistentConnection(factory, loggerFactory, eventBusSection.RetryCount);
             });
 
             sc.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
@@ -67,30 +67,28 @@ public static class DependencyInjection
                     loggerFactory,
                     sp,
                     eventBusSubcriptionsManager,
-                    settings.EventBus.QuequeName
+                    eventBusSection.QuequeName
                 );
             });
 
             return sc;
         });
 
-        services.AddIf(!settings.IsDevelopment, sc =>
+        services.AddIf(!isDevEnvironment, sc =>
         {
             sc.AddSingleton<IServiceBusPersisterConnection>(sp =>
             {
-                var serviceBusConnectionString = settings.EventBus.Host;
-                return new DefaultServiceBusPersisterConnection(serviceBusConnectionString);
+                return new DefaultServiceBusPersisterConnection(eventBusSection.Host);
             });
 
             sc.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
             {
                 var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
-                var logger = sp.GetRequiredService<ILoggerFactory>();
+                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-                string subscriptionName = settings.EventBus.QuequeName;
 
-                return new EventBusServiceBus(serviceBusPersisterConnection, logger,
-                    eventBusSubcriptionsManager, subscriptionName, sp);
+                return new EventBusServiceBus(serviceBusPersisterConnection, loggerFactory,
+                    eventBusSubcriptionsManager, eventBusSection.QuequeName, sp);
             });
 
             return sc;
