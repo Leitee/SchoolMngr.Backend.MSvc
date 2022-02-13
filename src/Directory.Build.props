@@ -4,7 +4,7 @@
 	  <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
   </PropertyGroup>
   
   <PropertyGroup Label="Assembly information">
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.11.0" />
+    <PackageReference Include="Codeit.NetStdLibrary.Base" Version="0.12.0" />
     <!-- <ProjectReference Include="..\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj" /> -->
   </ItemGroup>
 
