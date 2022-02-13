@@ -8,7 +8,7 @@ public static class DependencyInjection
         INFRASettings? infraSettings;
         using (var servProv = services.BuildServiceProvider())
         {
-            var config = servProv.GetService<IConfiguration>();
+            var config = servProv.GetRequiredService<IConfiguration>();
             infraSettings = config?.GetSection(sectionKey).Get<INFRASettings>();
         }
 
@@ -37,13 +37,15 @@ public static class DependencyInjection
 
     private static IServiceCollection RegisterEventBus(this IServiceCollection services, EventBusSection eventBusSection, bool isDevEnvironment)
     {
+        ILoggerFactory? loggerFactory;
+        IEventBusSubscriptionsManager? eventBusSubcriptionsManager;
+        using var servProv = services.BuildServiceProvider();
+        loggerFactory = servProv.GetRequiredService<ILoggerFactory>();
+        eventBusSubcriptionsManager = servProv.GetRequiredService<IEventBusSubscriptionsManager>();
+
         services.AddIf(isDevEnvironment, sc =>
         {
-            sc.AddSingleton<IRabbitMQPersistentConnection>(sp =>
-            {
-                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-
-                var factory = new ConnectionFactory()
+            var factory = new ConnectionFactory()
                 {
                     VirtualHost = "/",
                     DispatchConsumersAsync = true,
@@ -53,17 +55,13 @@ public static class DependencyInjection
                     Password = eventBusSection.Password
                 };
 
-                return new DefaultRabbitMQPersistentConnection(factory, loggerFactory, eventBusSection.RetryCount);
-            });
+            var persistentConnection = new DefaultRabbitMQPersistentConnection(factory, loggerFactory, eventBusSection.RetryCount);
+            sc.AddSingleton<IRabbitMQPersistentConnection>(persistentConnection);
 
             sc.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
             {
-                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-
                 return new EventBusRabbitMQ(
-                    rabbitMQPersistentConnection,
+                    persistentConnection,
                     loggerFactory,
                     sp,
                     eventBusSubcriptionsManager,
@@ -76,18 +74,12 @@ public static class DependencyInjection
 
         services.AddIf(!isDevEnvironment, sc =>
         {
-            sc.AddSingleton<IServiceBusPersisterConnection>(sp =>
-            {
-                return new DefaultServiceBusPersisterConnection(eventBusSection.Host);
-            });
+            var persistentConnection = new DefaultServiceBusPersisterConnection(eventBusSection.Host);
+            sc.AddSingleton<IServiceBusPersisterConnection>(persistentConnection);
 
             sc.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
             {
-                var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
-                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-
-                return new EventBusServiceBus(serviceBusPersisterConnection, loggerFactory,
+                return new EventBusServiceBus(persistentConnection, loggerFactory,
                     eventBusSubcriptionsManager, eventBusSection.QuequeName, sp);
             });
 
