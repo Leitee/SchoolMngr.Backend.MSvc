@@ -1,86 +1,74 @@
-﻿/// <summary>
-/// 
-/// </summary>
-namespace SchoolMngr.Infrastructure.Shared.EventBus
+﻿
+namespace SchoolMngr.Infrastructure.Shared.EventBus;
+
+public class IntegrationEventLogService : IIntegrationEventLogService
 {
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Storage;
-    using Codeit.NetStdLibrary.Base.Abstractions.Desentralized;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
+    private readonly IntegrationEventLogContext _integrationEventLogContext;
+    private readonly List<Type> _eventTypes;
 
-    public class IntegrationEventLogService : IIntegrationEventLogService
+    public IntegrationEventLogService(IntegrationEventLogContext eventLogContext)
     {
-        private readonly IntegrationEventLogContext _integrationEventLogContext;
-        private readonly List<Type> _eventTypes;
+        _integrationEventLogContext = eventLogContext;
 
-        public IntegrationEventLogService(IntegrationEventLogContext eventLogContext)
+        _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
+            .GetTypes()
+            .Where(t => t.Name.EndsWith(nameof(IntegrationEventPayload)))
+            .ToList();
+    }
+
+    public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync(Guid transactionId)
+    {
+        var tid = transactionId.ToString();
+
+        var result = await _integrationEventLogContext.IntegrationEventLogs
+            .Where(e => e.TransactionId == tid && e.State == EventStateEnum.NotPublished).ToListAsync();
+
+        if (result != null && result.Any())
         {
-            _integrationEventLogContext = eventLogContext;
-
-            _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
-                .GetTypes()
-                .Where(t => t.Name.EndsWith(nameof(IntegrationEventPayload)))
-                .ToList();
+            return result.OrderBy(o => o.CreationTime)
+                .Select(e => e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
         }
 
-        public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync(Guid transactionId)
-        {
-            var tid = transactionId.ToString();
+        return new List<IntegrationEventLogEntry>();
+    }
 
-            var result = await _integrationEventLogContext.IntegrationEventLogs
-                .Where(e => e.TransactionId == tid && e.State == EventStateEnum.NotPublished).ToListAsync();
+    public Task SaveEventAsync(IntegrationEventPayload @event, IDbContextTransaction transaction)
+    {
+        if (transaction == null) throw new ArgumentNullException(nameof(transaction));
 
-            if (result != null && result.Any())
-            {
-                return result.OrderBy(o => o.CreationTime)
-                    .Select(e => e.DeserializeJsonContent(_eventTypes.Find(t => t.Name == e.EventTypeShortName)));
-            }
+        var eventLogEntry = new IntegrationEventLogEntry(@event, transaction.TransactionId);
 
-            return new List<IntegrationEventLogEntry>();
-        }
+        _integrationEventLogContext.Database.UseTransaction(transaction.GetDbTransaction());
+        _integrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);
 
-        public Task SaveEventAsync(IntegrationEventPayload @event, IDbContextTransaction transaction)
-        {
-            if (transaction == null) throw new ArgumentNullException(nameof(transaction));
+        return _integrationEventLogContext.SaveChangesAsync();
+    }
 
-            var eventLogEntry = new IntegrationEventLogEntry(@event, transaction.TransactionId);
+    public Task MarkEventAsPublishedAsync(Guid eventId)
+    {
+        return UpdateEventStatus(eventId, EventStateEnum.Published);
+    }
 
-            _integrationEventLogContext.Database.UseTransaction(transaction.GetDbTransaction());
-            _integrationEventLogContext.IntegrationEventLogs.Add(eventLogEntry);
+    public Task MarkEventAsInProgressAsync(Guid eventId)
+    {
+        return UpdateEventStatus(eventId, EventStateEnum.InProgress);
+    }
 
-            return _integrationEventLogContext.SaveChangesAsync();
-        }
+    public Task MarkEventAsFailedAsync(Guid eventId)
+    {
+        return UpdateEventStatus(eventId, EventStateEnum.PublishedFailed);
+    }
 
-        public Task MarkEventAsPublishedAsync(Guid eventId)
-        {
-            return UpdateEventStatus(eventId, EventStateEnum.Published);
-        }
+    private Task UpdateEventStatus(Guid eventId, EventStateEnum status)
+    {
+        var eventLogEntry = _integrationEventLogContext.IntegrationEventLogs.Single(ie => ie.EventId == eventId);
+        eventLogEntry.State = status;
 
-        public Task MarkEventAsInProgressAsync(Guid eventId)
-        {
-            return UpdateEventStatus(eventId, EventStateEnum.InProgress);
-        }
+        if (status == EventStateEnum.InProgress)
+            eventLogEntry.TimesSent++;
 
-        public Task MarkEventAsFailedAsync(Guid eventId)
-        {
-            return UpdateEventStatus(eventId, EventStateEnum.PublishedFailed);
-        }
+        _integrationEventLogContext.IntegrationEventLogs.Update(eventLogEntry);
 
-        private Task UpdateEventStatus(Guid eventId, EventStateEnum status)
-        {
-            var eventLogEntry = _integrationEventLogContext.IntegrationEventLogs.Single(ie => ie.EventId == eventId);
-            eventLogEntry.State = status;
-
-            if (status == EventStateEnum.InProgress)
-                eventLogEntry.TimesSent++;
-
-            _integrationEventLogContext.IntegrationEventLogs.Update(eventLogEntry);
-
-            return _integrationEventLogContext.SaveChangesAsync();
-        }
+        return _integrationEventLogContext.SaveChangesAsync();
     }
 }
