@@ -1,11 +1,10 @@
-<Project>
-  
+<Project>  
   <PropertyGroup Label="SDK Versions">
-	  <TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	  <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
   </PropertyGroup>
   
   <PropertyGroup Label="Assembly information">
