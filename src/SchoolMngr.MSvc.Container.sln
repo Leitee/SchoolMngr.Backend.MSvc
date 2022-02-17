@@ -90,11 +90,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Infrastructure.Ident
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E95BE382-28FB-4DE4-9B20-344C268440C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.NetStdLibrary.Base", "infrastructure\base\Codeit.NetStdLibrary.Base\Codeit.NetStdLibrary.Base.csproj", "{90A0000A-FF05-4AEA-B3B7-9396BE925EC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Enterprise.Base", "infrastructure\base\Codeit.Enterprise.Base\Codeit.Enterprise.Base.csproj", "{90A0000A-FF05-4AEA-B3B7-9396BE925EC2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.NetStdLibrary.Base.Abstractions", "infrastructure\base\Codeit.NetStdLibrary.Base.Abstractions\Codeit.NetStdLibrary.Base.Abstractions.csproj", "{360730AC-EE66-417B-83AE-CAB4ABC63D73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Enterprise.Base.Abstractions", "infrastructure\base\Codeit.Enterprise.Base.Abstractions\Codeit.Enterprise.Base.Abstractions.csproj", "{360730AC-EE66-417B-83AE-CAB4ABC63D73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.NetStdLibrary.Base.Test", "infrastructure\base\Codeit.NetStdLibrary.Base.Test\Codeit.NetStdLibrary.Base.Test.csproj", "{3EBDC3F7-DF76-42C6-A49D-CA341A74AF82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codeit.Enterprise.Base.Test", "infrastructure\base\Codeit.Enterprise.Base.Test\Codeit.Enterprise.Base.Test.csproj", "{3EBDC3F7-DF76-42C6-A49D-CA341A74AF82}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{272B98BC-3624-4DAF-B54B-D5A2B6FA4D14}"
 EndProject
