@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>A base library to support microservices comunication and shared configuration.</Description>
+    <Description>A base library that supports microservices comunication and shared configuration.</Description>
   </PropertyGroup>
 
   <PropertyGroup Label="Publish configuraiton" Condition="true">
