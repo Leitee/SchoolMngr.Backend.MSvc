@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- <PackageReference Include="Codeit.Enterprise.Base" Version="0.12.0" /> -->
-    <ProjectReference Include="..\base\Codeit.Enterprise.Base\Codeit.Enterprise.Base.csproj" />
+    <PackageReference Include="Codeit.Enterprise.Base" Version="0.12.0" />
+    <!-- <ProjectReference Include="..\base\Codeit.Enterprise.Base\Codeit.Enterprise.Base.csproj" /> -->
   </ItemGroup>
 
 </Project>
