@@ -4,6 +4,7 @@ namespace SchoolMngr.Infrastructure.Shared.Configuration;
 public static class SharedHostConfiguration
 {
     public const string ApplicationName = nameof(ApplicationName);
+    private static IConfiguration? configuration;
 
     public static Serilog.ILogger CreateSerilogLogger(string appName)
     {
@@ -23,7 +24,7 @@ public static class SharedHostConfiguration
 
     public static IConfiguration BuildDefaultSettings(IConfigurationBuilder configurationBuilder)
     {
-        return CodeitUtils.BuildDefaultSettings(configurationBuilder);
+        return configuration ??= CodeitUtils.BuildDefaultSettings(configurationBuilder);
     }
 
 }

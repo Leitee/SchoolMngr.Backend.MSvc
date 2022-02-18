@@ -1,6 +1,6 @@
 [submodule "src/infrastructure/base"]
 	path = src/infrastructure/base
-	url = https://github.com/Leitee/Codeit.NetStdLibrary.Base.git
+	url = https://github.com/Leitee/Codeit.Enterprise.Base.git
 	branch = develop
 	ignore = dirty
 
